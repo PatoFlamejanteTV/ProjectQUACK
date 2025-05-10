@@ -28,6 +28,22 @@ Welcome to JS Engine's github repo, where you can download the engine and make s
 
 This contains lots and lots of customizable and features built in to JS Engine, if you wanna see most of them listed, you can see it below this text
 
+# New features on ProjectQUACK
+
+## Lua
+
+- [ ]  Connection
+  - [ ]  `getWIFIStatus() => return bool`
+  - [ ]  `universalURL(URL: string) => return bool`
+  - [ ]  `pingURL(URL: string) => return number`
+     
+- [ ]  End-User
+  - [ ]  `getUsername() => return string`
+  - [ ]  `getLocalIP() => return string` _note that Local IP is not the same as public IP._
+  - [ ]  Hardware
+    - [ ]  `getBatteryLevel() => return string` _useful for automatic lower graphics/enable low res mode_
+    - [ ]  `getSun(mon: number?) => return number` _get monitor brightness%_
+
 # Features/Performances in JS ENGINE
 
 **This fork has tons of features and performances features, most will be listed:**
