@@ -1,6 +1,7 @@
 @echo off
 color 0a
 cd ..
+TITLE Installing dependencies...
 echo Installing dependencies...
 echo This might take a few moments depending on your internet speed.
 @echo on
@@ -21,5 +22,6 @@ haxelib git grig.audio https://gitlab.com/haxe-grig/grig.audio.git cbf91e2180fd2
 haxelib git hxdiscord_rpc https://github.com/MAJigsaw77/hxdiscord_rpc --quiet
 haxelib install hxvlc 1.9.2 --quiet
 @echo off
+TITLE Done!
 echo Finished!
 pause
