@@ -1,7 +1,7 @@
 <!-- this is an secret -->
 <h1 align="center">
   <br>
-  <a href="https://github.com/PatoFlamejanteTV/ProjectQUACKe"><img src="/art/iconOG.png" alt="JSengine" width="150"></a>
+  <a href="https://github.com/PatoFlamejanteTV/ProjectQUACK"><img src="/art/iconOG.png" alt="JSengine" width="150"></a>
   <br>
   <b>ProjectQUACK</b>
   <br>
