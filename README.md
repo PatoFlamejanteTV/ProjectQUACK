@@ -1,7 +1,7 @@
 <!-- this is an secret -->
 <h1 align="center">
   <br>
-  <a href="https://github.com/JordanSantiagoYT/FNF-JS-Engine"><img src="/art/iconOG.png" alt="JSengine" width="150"></a>
+  <a href="https://github.com/PatoFlamejanteTV/ProjectQUACKe"><img src="/art/iconOG.png" alt="JSengine" width="150"></a>
   <br>
   <b>ProjectQUACK</b>
   <br>
@@ -13,9 +13,9 @@
 </h3>
 
 <p align="center">
-<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/JordanSantiagoYT/FNF-JS-Engine">
-<img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/JordanSantiagoYT/FNF-JS-Engine">
-<img alt="GitHub contributors" src="https://img.shields.io/github/contributors/JordanSantiagoYT/FNF-JS-Engine">
+<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/PatoFlamejanteTV/ProjectQUACK">
+<img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/PatoFlamejanteTV/ProjectQUACK">
+<img alt="GitHub contributors" src="https://img.shields.io/github/contributors/PatoFlamejanteTV/ProjectQUACK">
 </p>
 
 README.md revamped by [Nael2xd](https://youtube.com/@nael2xd?si=axwJrY_8jdlXUwSm)
