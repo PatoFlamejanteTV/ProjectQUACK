@@ -15,6 +15,10 @@ end
 
 function onEndSong()
     -- Set the text to be invisible
-    addHaxeLibrary('Application', 'lime.app')
-    runHaxeCode([[Application.current.window.alert('Hello! :DDD', 'XD');]])
+    -- run if not on linux
+    if not (os.getenv('OS') == 'Linux') then
+        -- Somehow it fucking crashes X connection when you press OK on the popup
+        addHaxeLibrary('Application', 'lime.app')
+        runHaxeCode([[Application.current.window.alert('Hello! :DDD', 'XD');]])
+    end
 end
