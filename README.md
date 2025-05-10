@@ -3,9 +3,9 @@
   <br>
   <a href="https://github.com/JordanSantiagoYT/FNF-JS-Engine"><img src="/art/iconOG.png" alt="JSengine" width="150"></a>
   <br>
-  <b>JS Engine</b>
+  <b>ProjectQUACK</b>
   <br>
-  <i>(Jordan Santiago Engine)</i>
+  <i>(aka. UltimateQuack's Engine)</i>
   <br>
 </h1>
 <h3 align="center">
