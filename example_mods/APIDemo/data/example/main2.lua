@@ -6,7 +6,7 @@
 function onCreate()
 	makeLuaText	('exampleText2', 'Hello, World!', 800, 200, 200)
 	setTextColor('exampleText2', 'FFFFFF')
-	setTextSize	('exampleText2', 32)
+	setTextSize	('exampleText2', 64)
 	addLuaText	('exampleText2')
 	
 	-- Set the text to be visible

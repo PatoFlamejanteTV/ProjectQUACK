@@ -4745,7 +4745,7 @@ class PlayState extends MusicBeatState
 
 		#if ACHIEVEMENTS_ALLOWED
 		var weekNoMiss:String = WeekData.getWeekFileName() + '_nomiss';
-		checkForAchievement([weekNoMiss, 'ur_bad', 'ur_good', 'hype', 'two_keys', 'toastie', 'debugger']);
+		checkForAchievement([weekNoMiss, 'ur_bad', 'ur_good', 'hype', 'two_keys', 'toastie', 'debugger', 'sigma']);
 		#end
 
 		var ret:Dynamic = callOnLuas('onEndSong', [], true);
@@ -6672,6 +6672,9 @@ class PlayState extends MusicBeatState
 
 					case 'debugger':
 						unlock = (songName == 'test' && !usedPractice);
+
+					case 'sigma':
+						unlock = (boyfriend.holdTimer >= 69 && !usedPractice);
 				}
 			}
 			else // any FC achievements, name should be "weekFileName_nomiss", e.g: "week3_nomiss";
