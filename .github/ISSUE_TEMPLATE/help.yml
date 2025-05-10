@@ -1,0 +1,82 @@
+name: Help me!
+description: If you need help using the engine.
+labels: [help wanted, status: pending triage]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "Describe your problem here."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: outdatedBuildCheck
+    attributes:
+      label: "Did you check if the problem occurs in the latest build?"
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: knownIssueCheck
+    attributes:
+      label: "Did you check if there's a problem that you are trying to figure out on the issue linked below?"
+      description: "[Click me here.](https://github.com/JordanSantiagoYT/FNF-JS-Engine/issues/359)"
+      options:
+        - "No"
+        - "Yes"
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: dupeCheck
+    attributes:
+      label: "Did you check if there's any similar issues?"
+      options:
+        - "No"
+        - "Yes"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: modding
+    attributes:
+      label: "Are you modding a build from source or with Lua?"
+      options:
+        - Lua
+        - Source
+    validations:
+      required: true
+
+  - type: textarea
+    id: cmdLogs
+    attributes:
+      label: "Command Prompt/Terminal logs/Crash logs (if existing)"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: btarget
+    attributes:
+      label: "What is your build target?"
+      options:
+        - "Windows x64"
+        - "Windows x86/x32"
+        - "Linux"
+        - "Mac"
+        - "Android"
+        - "iOS"
+        - "Flash/Air-based target"
+        - "Neko, HashLink, or other build system"
+    validations:
+      required: true
+
+  - type: input
+    id: buildsummary
+    attributes:
+      label: "Did you edit anything in this build? If so, mention or summarize your changes."
+      placeholder: "Yes, I edited ClientPrefs.hx and tried to add a new setting"
+    validations:
+      required: false

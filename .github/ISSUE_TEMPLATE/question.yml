@@ -1,0 +1,48 @@
+name: Question
+description: Ask about something here.
+labels: [question, status: pending triage]
+body:
+  - type: textarea
+    attributes:
+      label: What is your question?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: outdatedBuildCheck
+    attributes:
+      label: "If its a problem you are having, did you check if the problem occurs in the latest build?"
+      options:
+        - "No"
+        - "Yes"
+        - "No, it's not a problem."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: knownIssueCheck
+    attributes:
+      label: "Did you check if there's a problem that you are trying to figure out on the issue linked below?"
+      description: "[Click me here.](https://github.com/JordanSantiagoYT/FNF-JS-Engine/issues/359)"
+      options:
+        - "No"
+        - "Yes"
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: dupeCheck
+    attributes:
+      label: "Did you check if there's any similar issues?"
+      options:
+        - "No"
+        - "Yes"
+    validations:
+      required: true
+
+  - type: textarea
+    id: cmdLogs
+    attributes:
+      label: "Command Prompt/Terminal logs/Crash logs (if existing)"
+    validations:
+      required: false

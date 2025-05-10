@@ -1,0 +1,90 @@
+name: Bug report
+description: Report bugs with the engine here
+labels: [bug, "status: pending triage"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "Describe your bug here."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: outdatedBuildCheck
+    attributes:
+      label: "Did you check if the problem occurs in the latest build?"
+      options:
+        - "No"
+        - "Yes"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: knownIssueCheck
+    attributes:
+      label: "Did you check if this issue is already known?"
+      description: "[Click me here to see the Known Issues and Fixes. Please?](https://github.com/JordanSantiagoYT/FNF-JS-Engine/issues/359)"
+      options:
+        - "No"
+        - "Yes"
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: dupeCheck
+    attributes:
+      label: "Did you check for any similar issues?"
+      description: "Check if there is one. Don't report the issue if you find an issue related to this one, or it will be closed as a duplicate."
+      options:
+        - "No"
+        - "Yes"
+    validations:
+      required: true
+
+  - type: textarea
+    id: terminal
+    attributes:
+      label: "Command Prompt/Terminal/Crash logs (if existing)"
+    validations:
+      required: false
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: "Have you identified any steps to reproduce the bug? If so, please describe them below in as much detail as possible. Use images if possible."
+    validations:
+      required: false
+
+  - type: dropdown
+    id: modding
+    attributes:
+      label: "Are you modding a build from source or with Lua?"
+      options:
+        - Lua
+        - Source
+        - None (not modding with either/not using any mods)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: btarget
+    attributes:
+      label: "What is your build target?"
+      options:
+        - "Windows"
+        - "Linux"
+        - "Mac"
+        - "Android"
+        - "iOS"
+        - "Flash/Air-based target"
+        - "Neko, HashLink, or other build system"
+    validations:
+      required: true
+
+  - type: input
+    id: buildsummary
+    attributes:
+      label: "Did you edit anything in this build? If so, mention or summarize your changes."
+      placeholder: "Yes, I edited ClientPrefs.hx and tried to add a new setting"
+    validations:
+      required: true
