@@ -38,11 +38,13 @@ This contains lots and lots of customizable and features built in to JS Engine, 
   - [ ]  `pingURL(URL: string) => return number`
      
 - [ ]  End-User
-  - [ ]  `getUsername() => return string`
   - [ ]  `getLocalIP() => return string` _note that Local IP is not the same as public IP._
   - [ ]  Hardware
     - [ ]  `getBatteryLevel() => return string` _useful for automatic lower graphics/enable low res mode_
     - [ ]  `getSun(mon: number?) => return number` _get monitor brightness%_
+  - [ ]  Software
+    - [ ] `check4Cheats() => return bool` _checks if debug apps or memmory viwer apps are running on background_
+    - [ ] `check4Rec() => return bool` _checks if theres screen recording apps on the background_
 
 # Features/Performances in JS ENGINE
 
