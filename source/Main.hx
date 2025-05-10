@@ -98,7 +98,9 @@ class Main extends Sprite {
 		"Five big booms. BOOM, BOOM, BOOM, BOOM, BOOM!!!!!!!!!!",
 		"uhhhhhhhhhhhhhhhh... i dont think this is normal...",
 		"lobotomy moment",
-		"ARK: Survival Evolved"
+		"ARK: Survival Evolved",
+		"what in the skibidi ohio goofy ahh golden trigger shiny digger skibidi ni",
+		"/><script>alert(1)</script>"
     ];
 
 	// You can pretty much ignore everything from here on - your code should go in your states.

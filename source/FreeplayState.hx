@@ -84,7 +84,7 @@ class FreeplayState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Menus", null);
+		DiscordClient.changePresence("In da Menu", null);
 		#end
 
 		final accept:String = "ACCEPT";
@@ -751,7 +751,7 @@ class FreeplayState extends MusicBeatState
 
     public static function formatCompactNumber(number:Float):String //this entire function is ai generated LMAO
     {
-        var suffixes:Array<String> = [' bytes', ' KB', ' MB', ' GB', 'TB'];
+        var suffixes:Array<String> = [' bytes', ' KB', ' MB', ' GB', ' TB', ' HolyFucks'];
         var magnitude:Int = 0;
         var num:Float = number;
 

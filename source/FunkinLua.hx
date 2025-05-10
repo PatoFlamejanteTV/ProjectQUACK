@@ -117,6 +117,7 @@ class FunkinLua {
 
 		trace('lua file loaded succesfully:' + script);
 
+
 		// Lua shit
 		set('Function_StopLua', Function_StopLua);
 		set('Function_Stop', Function_Stop);
@@ -2972,6 +2973,28 @@ class FunkinLua {
 			return list;
 		});
 
+		#if windows
+		import lime.ui.Window;
+		import lime.system.System;
+		@:cppFileCode('
+		#include <windows.h>
+		')
+		Lua_helper.add_callback(lua, "setTopMost", function(){
+			#if cpp
+			var hWnd = cast cpp.Native.getWindow(FlxG.game._limeWindow);
+			cpp.Lib.load("user32", "SetWindowPos", 7)(hWnd, -1, 0, 0, 0, 0, 0x0002 | 0x0001 | 0x0040);
+			#end
+		});
+		#end
+		
+		/*Lua_helper.add_callback(lua, "getBatteryLevel", function() {
+			#if (!flash && !html5 && sys)
+			return Sys.getBatteryLevel();
+			#else
+			return 0;
+			#end
+		});*/
+
 		Lua_helper.add_callback(lua, "changeCursor", function(path:String, visible:Bool = true, ?loadDefault:Bool = false, scale:Float = 1, xOffset:Int = 0, yOffset:Int = 0) {
 			if (Paths.image(path) != null){
 				FlxG.mouse.visible = visible;
@@ -2996,7 +3019,7 @@ class FunkinLua {
 
 		call('onCreate', []);
 		#end
-	}
+	};
 
 	public static function isOfTypes(value:Any, types:Array<Dynamic>)
 	{

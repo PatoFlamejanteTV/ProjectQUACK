@@ -6689,7 +6689,9 @@ class PlayState extends MusicBeatState
 	var curLight:Int = -1;
 	var curLightEvent:Int = -1;
 
+	#if (!flash && !html5)
 	public static var process:Process;
+	#end
 	var ffmpegExists:Bool = false;
 
 	private function initRender():Void
@@ -6720,8 +6722,9 @@ class PlayState extends MusicBeatState
 				dateNow = dateNow.replace(":", "'");
             fileName += '-' + dateNow;
         }
-
+		#if (!flash && !html5)
 		process = new Process('ffmpeg', ['-v', 'quiet', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', lime.app.Application.current.window.width + 'x' + lime.app.Application.current.window.height, '-r', Std.string(targetFPS), '-i', '-', '-c:v', ClientPrefs.vidEncoder, '-b', Std.string(ClientPrefs.renderBitrate * 1000000), fileName + '.mp4']);
+		#end
 		FlxG.autoPause = false;
 	}
 
@@ -6734,7 +6737,9 @@ class PlayState extends MusicBeatState
 
 		img = lime.app.Application.current.window.readPixels(new lime.math.Rectangle(FlxG.scaleMode.offset.x, FlxG.scaleMode.offset.y, FlxG.scaleMode.gameSize.x, FlxG.scaleMode.gameSize.y));
 		bytes = img.getPixels(new lime.math.Rectangle(0, 0, img.width, img.height));
+		#if (!flash && !html5)
 		process.stdin.writeBytes(bytes, 0, bytes.length);
+		#end
 	}
 
 	public static function stopRender():Void
@@ -6742,6 +6747,7 @@ class PlayState extends MusicBeatState
 		if (!ClientPrefs.ffmpegMode)
 			return;
 
+		#if (!flash && !html5)
 		if (process != null){
 			if (process.stdin != null)
 				process.stdin.close();
@@ -6749,6 +6755,7 @@ class PlayState extends MusicBeatState
 			process.close();
 			process.kill();
 		}
+		#end
 
 		FlxG.autoPause = ClientPrefs.autoPause;
 	}

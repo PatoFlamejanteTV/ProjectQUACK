@@ -1,0 +1,6 @@
+{
+	"name": "Example ProjectQUACK API Demo",
+	"description": "Tests how Lua scripts can interact with ProjectQUACK API.",
+	"restart":false,
+	"color": [170, 0, 255]
+}

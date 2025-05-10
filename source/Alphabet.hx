@@ -55,7 +55,7 @@ class Alphabet extends FlxSpriteGroup
 		{
 			case 'right':
 				alignment = RIGHT;
-			case 'center' | 'centered':
+			case 'center' | 'centered' | 'middle':
 				alignment = CENTERED;
 			default:
 				alignment = LEFT;

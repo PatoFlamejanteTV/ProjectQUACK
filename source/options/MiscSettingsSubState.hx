@@ -60,6 +60,14 @@ class MiscSettingsSubState extends BaseOptionsMenu
 				false); //Default value
 			addOption(option);
 		#end
+
+		var option:Option = new Option('Meow', //Name
+			'secret.', //Description
+			'meoww', //Save data variable name
+			'bool', //Variable type
+			false); //Default value
+		addOption(option);
+
 		//credit to Nael2xd for the idea
 		var option:Option = new Option('Rainbow Note Shift Speed', //Name
 			'Changes the amount of time between 1 cycle for Rainbow Notes.\n(Make sure you have your note colors set to "Rainbow" to see this in action!)', //Description

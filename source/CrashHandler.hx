@@ -14,8 +14,10 @@ import openfl.events.ErrorEvent;
 import openfl.errors.Error;
 import haxe.CallStack;
 import haxe.io.Path;
+#if (!flash && !html5 && !js)
 import sys.FileSystem;
 import sys.io.File;
+#end
 import openfl.Lib;
 
 using StringTools;
@@ -83,8 +85,10 @@ class CrashHandler {
 				File.saveContent(path, '$errorMessage\n\nCrash Happened on JS Engine v${MainMenuState.psychEngineJSVersionNumber}!');
 			} catch(e) trace('Couldn\'t save error message. (${e.message})');
 	
+			#if (!flash && !html5)
 			Sys.println(errorMessage);
 			Sys.println("Crash dump saved in " + Path.normalize(path));
+			#end
 		} catch(e:Dynamic) trace(e);
 
 		FlxTransitionableState.skipNextTransIn = true;

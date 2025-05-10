@@ -192,6 +192,7 @@ class ClientPrefs { //default settings if it can't find a save file containing y
 	public static var disableAprilFools:Bool = false;
 	public static var rainbowTime:Float = 5.0;
 	public static var autosaveCharts:Bool = true;
+	public static var meoww:Bool = false;
 
 	//Gameplay Modifiers
 	public static var gameplaySettings:Map<String, Dynamic> = [
