@@ -13,7 +13,7 @@ function onCreate()
 	setProperty	('exampleText2.visible', true)
 end
 
-function onSongEnd()
+function onEndSong()
     -- Set the text to be invisible
     addHaxeLibrary('Application', 'lime.app')
     runHaxeCode([[Application.current.window.alert('Hello! :DDD', 'XD');]])
