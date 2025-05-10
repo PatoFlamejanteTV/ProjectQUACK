@@ -25,7 +25,7 @@ class FlxView3D extends FlxSprite
 	/**
 	 * Set this flag to true to force the View3D to update during the `draw()` call.
 	 */
-	 public var dirty3D:Bool = true;
+	public var dirty3D:Bool = true;
 
 	/**
 	 * Creates a new instance of a View3D from Away3D and renders it as a FlxSprite
@@ -76,12 +76,11 @@ class FlxView3D extends FlxSprite
 			bmp = null;
 		}
 
-		if (view != null) 
+		if (view != null)
 		{
 			view.dispose();
 			view = null;
 		}
-	
 	}
 
 	@:noCompletion override function draw()

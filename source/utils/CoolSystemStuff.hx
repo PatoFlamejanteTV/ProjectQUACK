@@ -1,11 +1,10 @@
 package utils;
 
 /*
-    This is some cool system shit!
+	This is some cool system shit!
 	lordRyan wrote this :D
-    Shoutout to him :D
-*/
-
+	Shoutout to him :D
+ */
 import sys.io.File;
 import sys.io.Process;
 import haxe.io.Bytes;
@@ -42,6 +41,7 @@ class CoolSystemStuff
 		return Sys.getEnv("HOME");
 		#end
 	}
+
 	public static function executableFileName()
 	{
 		#if windows

@@ -2,10 +2,8 @@ package stages;
 
 import openfl.filters.ShaderFilter;
 import shaders.RainShader;
-
 import flixel.addons.display.FlxTiledSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
-
 import GameOverSubstate;
 import stages.objects.*;
 
@@ -21,7 +19,7 @@ class PhillyStreetsBF extends BaseStage
 	var rainShader:RainShader;
 	var rainShaderStartIntensity:Float = 0;
 	var rainShaderEndIntensity:Float = 0;
-	
+
 	var scrollingSky:FlxTiledSprite;
 	var phillyTraffic:BGSprite;
 
@@ -34,9 +32,10 @@ class PhillyStreetsBF extends BaseStage
 
 	var darkenable:Array<FlxSprite> = [];
 	var abot:ABotSpeaker;
+
 	override function create()
 	{
-		if(!ClientPrefs.lowQuality)
+		if (!ClientPrefs.lowQuality)
 		{
 			var skyImage = Paths.image('phillyStreets/phillySkybox');
 			scrollingSky = new FlxTiledSprite(skyImage, skyImage.width + 400, skyImage.height, true, false);
@@ -45,7 +44,7 @@ class PhillyStreetsBF extends BaseStage
 			scrollingSky.scrollFactor.set(0.1, 0.1);
 			scrollingSky.scale.set(0.65, 0.65);
 			add(scrollingSky);
-		
+
 			var phillySkyline:BGSprite = new BGSprite('phillyStreets/phillySkyline', -545, -273, 0.2, 0.2);
 			add(phillySkyline);
 
@@ -59,7 +58,7 @@ class PhillyStreetsBF extends BaseStage
 		var phillyHighwayLights:BGSprite = new BGSprite('phillyStreets/phillyHighwayLights', 284, 305, 1, 1);
 		add(phillyHighwayLights);
 
-		if(!ClientPrefs.lowQuality)
+		if (!ClientPrefs.lowQuality)
 		{
 			var phillyHighwayLightsLightmap:BGSprite = new BGSprite('phillyStreets/phillyHighwayLights_lightmap', 284, 305, 1, 1);
 			phillyHighwayLightsLightmap.blend = ADD;
@@ -70,7 +69,7 @@ class PhillyStreetsBF extends BaseStage
 		var phillyHighway:BGSprite = new BGSprite('phillyStreets/phillyHighway', 139, 209, 1, 1);
 		add(phillyHighway);
 
-		if(!ClientPrefs.lowQuality)
+		if (!ClientPrefs.lowQuality)
 		{
 			var phillySmog:BGSprite = new BGSprite('phillyStreets/phillySmog', -6, 245, 0.8, 1);
 			add(phillySmog);
@@ -79,10 +78,12 @@ class PhillyStreetsBF extends BaseStage
 			{
 				var car:BGSprite = new BGSprite('phillyStreets/phillyCars', 1200, 818, 0.9, 1, ['car1', 'car2', 'car3', 'car4'], false);
 				add(car);
-				switch(i)
+				switch (i)
 				{
-					case 0: phillyCars = car;
-					case 1: phillyCars2 = car;
+					case 0:
+						phillyCars = car;
+					case 1:
+						phillyCars2 = car;
 				}
 			}
 			phillyCars2.flipX = true;
@@ -98,8 +99,8 @@ class PhillyStreetsBF extends BaseStage
 
 		var phillyForeground:BGSprite = new BGSprite('phillyStreets/phillyForeground', 88, 317, 1, 1);
 		add(phillyForeground);
-		
-		if(ClientPrefs.shaders)
+
+		if (ClientPrefs.shaders)
 			setupRainShader();
 	}
 
@@ -122,14 +123,16 @@ class PhillyStreetsBF extends BaseStage
 		rainShader.intensity = rainShaderStartIntensity;
 		FlxG.camera.setFilters([new ShaderFilter(rainShader)]);
 	}
-	
+
 	override function update(elapsed:Float)
 	{
-		if(scrollingSky != null) scrollingSky.scrollX -= elapsed * 22;
+		if (scrollingSky != null)
+			scrollingSky.scrollX -= elapsed * 22;
 
-		if(rainShader != null)
+		if (rainShader != null)
 		{
-			var remappedIntensityValue:Float = FlxMath.remapToRange(Conductor.songPosition, 0, (FlxG.sound.music != null ? FlxG.sound.music.length : 0), rainShaderStartIntensity, rainShaderEndIntensity);
+			var remappedIntensityValue:Float = FlxMath.remapToRange(Conductor.songPosition, 0, (FlxG.sound.music != null ? FlxG.sound.music.length : 0),
+				rainShaderStartIntensity, rainShaderEndIntensity);
 			rainShader.intensity = remappedIntensityValue;
 			rainShader.updateViewInfo(FlxG.width, FlxG.height, FlxG.camera);
 			rainShader.update(elapsed);
@@ -146,28 +149,30 @@ class PhillyStreetsBF extends BaseStage
 
 	override function beatHit()
 	{
-		if(ClientPrefs.lowQuality) return;
+		if (ClientPrefs.lowQuality)
+			return;
 
 		if (FlxG.random.bool(10) && curBeat != (lastChange + changeInterval) && carInterruptable == true)
 		{
-			if(lightsStop == false)
+			if (lightsStop == false)
 				driveCar(phillyCars);
 			else
 				driveCarLights(phillyCars);
 		}
 
-		if(FlxG.random.bool(10) && curBeat != (lastChange + changeInterval) && car2Interruptable == true && lightsStop == false)
+		if (FlxG.random.bool(10) && curBeat != (lastChange + changeInterval) && car2Interruptable == true && lightsStop == false)
 			driveCarBack(phillyCars2);
 
-		if (curBeat == (lastChange + changeInterval)) changeLights(curBeat);
+		if (curBeat == (lastChange + changeInterval))
+			changeLights(curBeat);
 	}
-	
+
 	function changeLights(beat:Int):Void
 	{
 		lastChange = beat;
 		lightsStop = !lightsStop;
 
-		if(lightsStop)
+		if (lightsStop)
 		{
 			phillyTraffic.animation.play('greentored');
 			changeInterval = 20;
@@ -177,7 +182,8 @@ class PhillyStreetsBF extends BaseStage
 			phillyTraffic.animation.play('redtogreen');
 			changeInterval = 30;
 
-			if(carWaiting == true) finishCarLights(phillyCars);
+			if (carWaiting == true)
+				finishCarLights(phillyCars);
 		}
 	}
 
@@ -203,12 +209,12 @@ class PhillyStreetsBF extends BaseStage
 	{
 		carInterruptable = false;
 		FlxTween.cancelTweensOf(sprite);
-		var variant:Int = FlxG.random.int(1,4);
+		var variant:Int = FlxG.random.int(1, 4);
 		sprite.animation.play('car' + variant);
 		var extraOffset = [0, 0];
 		var duration:Float = 2;
 
-		switch(variant)
+		switch (variant)
 		{
 			case 1:
 				duration = FlxG.random.float(1, 1.7);
@@ -232,24 +238,28 @@ class PhillyStreetsBF extends BaseStage
 			FlxPoint.get(1950 - offset[0] - 80, 980 - offset[1] + 15)
 		];
 
-		FlxTween.angle(sprite, rotations[0], rotations[1], duration, {ease: FlxEase.cubeOut} );
-		FlxTween.quadPath(sprite, path, duration, true, {ease: FlxEase.cubeOut, onComplete: function(_)
-		{
-			carWaiting = true;
-			if(lightsStop == false) finishCarLights(phillyCars);
-		}});
+		FlxTween.angle(sprite, rotations[0], rotations[1], duration, {ease: FlxEase.cubeOut});
+		FlxTween.quadPath(sprite, path, duration, true, {
+			ease: FlxEase.cubeOut,
+			onComplete: function(_)
+			{
+				carWaiting = true;
+				if (lightsStop == false)
+					finishCarLights(phillyCars);
+			}
+		});
 	}
-	
+
 	function driveCar(sprite:BGSprite):Void
 	{
 		carInterruptable = false;
 		FlxTween.cancelTweensOf(sprite);
-		var variant:Int = FlxG.random.int(1,4);
+		var variant:Int = FlxG.random.int(1, 4);
 		sprite.animation.play('car' + variant);
 
 		var extraOffset = [0, 0];
 		var duration:Float = 2;
-		switch(variant)
+		switch (variant)
 		{
 			case 1:
 				duration = FlxG.random.float(1, 1.7);
@@ -269,9 +279,9 @@ class PhillyStreetsBF extends BaseStage
 
 		var rotations:Array<Int> = [-8, 18];
 		var path:Array<FlxPoint> = [
-				FlxPoint.get(1570 - offset[0], 1049 - offset[1] - 30),
-				FlxPoint.get(2400 - offset[0], 980 - offset[1] - 50),
-				FlxPoint.get(3102 - offset[0], 1127 - offset[1] + 40)
+			FlxPoint.get(1570 - offset[0], 1049 - offset[1] - 30),
+			FlxPoint.get(2400 - offset[0], 980 - offset[1] - 50),
+			FlxPoint.get(3102 - offset[0], 1127 - offset[1] + 40)
 		];
 
 		FlxTween.angle(sprite, rotations[0], rotations[1], duration);
@@ -282,12 +292,12 @@ class PhillyStreetsBF extends BaseStage
 	{
 		car2Interruptable = false;
 		FlxTween.cancelTweensOf(sprite);
-		var variant:Int = FlxG.random.int(1,4);
+		var variant:Int = FlxG.random.int(1, 4);
 		sprite.animation.play('car' + variant);
 
 		var extraOffset = [0, 0];
 		var duration:Float = 2;
-		switch(variant)
+		switch (variant)
 		{
 			case 1:
 				duration = FlxG.random.float(1, 1.7);
@@ -307,9 +317,9 @@ class PhillyStreetsBF extends BaseStage
 
 		var rotations:Array<Int> = [18, -8];
 		var path:Array<FlxPoint> = [
-				FlxPoint.get(3102 - offset[0], 1127 - offset[1] + 60),
-				FlxPoint.get(2400 - offset[0], 980 - offset[1] - 30),
-				FlxPoint.get(1570 - offset[0], 1049 - offset[1] - 10)
+			FlxPoint.get(3102 - offset[0], 1127 - offset[1] + 60),
+			FlxPoint.get(2400 - offset[0], 980 - offset[1] - 30),
+			FlxPoint.get(1570 - offset[0], 1049 - offset[1] - 10)
 		];
 
 		FlxTween.angle(sprite, rotations[0], rotations[1], duration);
@@ -318,6 +328,7 @@ class PhillyStreetsBF extends BaseStage
 
 	override function onGameOver()
 	{
-		if (rainShader != null) rainShader = null;
+		if (rainShader != null)
+			rainShader = null;
 	}
 }

@@ -7,21 +7,23 @@ import flixel.FlxState;
 /**
  * Handles initialization of variables when first opening the game.
 **/
-class InitState extends FlxState {
-    override function create():Void {
-        super.create();
+class InitState extends FlxState
+{
+	override function create():Void
+	{
+		super.create();
 
-        // -- FLIXEL STUFF -- //
+		// -- FLIXEL STUFF -- //
 
-        FlxG.game.focusLostFramerate = 60;
+		FlxG.game.focusLostFramerate = 60;
 		FlxG.sound.muteKeys = TitleState.muteKeys;
 		FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 		FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
 		FlxG.keys.preventDefaultKeys = [TAB];
 
-        FlxTransitionableState.skipNextTransIn = true;
+		FlxTransitionableState.skipNextTransIn = true;
 
-        // -- SETTINGS -- //
+		// -- SETTINGS -- //
 
 		FlxG.save.bind('funkin', CoolUtil.getSavePath());
 
@@ -33,16 +35,16 @@ class InitState extends FlxState {
 
 		PlayerSettings.init();
 
-        // ClientPrefs.loadDefaultKeys();
+		// ClientPrefs.loadDefaultKeys();
 		ClientPrefs.loadPrefs();
 
-        /*
-        #if ACHIEVEMNTS_ALLOWED
-        Achievements.init();
-        #end
-        */
+		/*
+			#if ACHIEVEMNTS_ALLOWED
+			Achievements.init();
+			#end
+		 */
 
-        // -- MODS -- //
+		// -- MODS -- //
 
 		#if LUA_ALLOWED
 		Paths.pushGlobalMods();
@@ -50,13 +52,13 @@ class InitState extends FlxState {
 		// Just to load a mod on start up if ya got one. For mods that change the menu music and bg
 		WeekData.loadTheFirstEnabledMod();
 
-        // -- -- -- //
+		// -- -- -- //
 
-        Paths.clearStoredMemory();
+		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
-        final state:Class<FlxState> = (ClientPrefs.disableSplash) ? TitleState : StartupState;
+		final state:Class<FlxState> = (ClientPrefs.disableSplash) ? TitleState : StartupState;
 
-        FlxG.switchState(Type.createInstance(state, []));
-    }
+		FlxG.switchState(Type.createInstance(state, []));
+	}
 }

@@ -13,9 +13,10 @@ class StartupState extends MusicBeatState
 	var canChristmas = false;
 	var canAutism = false;
 
-
 	private var vidSprite:VideoSprite = null;
-	private function startVideo(name:String, ?library:String = null, ?callback:Void->Void = null, canSkip:Bool = true, loop:Bool = false, playOnLoad:Bool = true)
+
+	private function startVideo(name:String, ?library:String = null, ?callback:Void->Void = null, canSkip:Bool = true, loop:Bool = false,
+			playOnLoad:Bool = true)
 	{
 		#if VIDEOS_ALLOWED
 		var foundFile:Bool = false;
@@ -45,15 +46,18 @@ class StartupState extends MusicBeatState
 				vidSprite.videoSprite.play();
 			return vidSprite;
 		}
-		else {
+		else
+		{
 			FlxG.log.error("Video not found: " + fileName);
-			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+			new FlxTimer().start(0.1, function(tmr:FlxTimer)
+			{
 				doIntro();
 			});
 		}
 		#else
 		FlxG.log.warn('Platform not supported!');
-		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+		new FlxTimer().start(0.1, function(tmr:FlxTimer)
+		{
 			doIntro();
 		});
 		#end
@@ -62,21 +66,21 @@ class StartupState extends MusicBeatState
 
 	override public function create():Void
 	{
-		if (date.getMonth() == 11 && date.getDate() >= 16 && date.getDate() <= 31) //Only triggers if the date is between 12/16 and 12/31
+		if (date.getMonth() == 11 && date.getDate() >= 16 && date.getDate() <= 31) // Only triggers if the date is between 12/16 and 12/31
 		{
 			canChristmas = true;
-			maxIntros += 1; //JOLLY SANTA!!!
+			maxIntros += 1; // JOLLY SANTA!!!
 		}
 		#if APRIL_FOOLS
-			else if (date.getMonth() == 3 && date.getDate() == 1) // funny
+		else if (date.getMonth() == 3 && date.getDate() == 1) // funny
+		{
+			if (!ClientPrefs.disableAprilFools)
 			{
-				if (!ClientPrefs.disableAprilFools)
-				{
 				canAutism = true;
-				maxIntros += 1; //autism!!!!!!!!!!!!!!!!!!!!!!oubgrebiugerbiuegrs
+				maxIntros += 1; // autism!!!!!!!!!!!!!!!!!!!!!!oubgrebiugerbiuegrs
 				// burger
-				}
 			}
+		}
 		#end
 		FlxTransitionableState.skipNextTransIn = true;
 		FlxTransitionableState.skipNextTransOut = true;
@@ -101,26 +105,30 @@ class StartupState extends MusicBeatState
 
 		FlxTween.tween(skipTxt, {alpha: 1}, 1);
 
-		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+		new FlxTimer().start(0.1, function(tmr:FlxTimer)
+		{
 			doIntro();
 		});
 
 		super.create();
 	}
 
-	function onIntroDone(?fadeDelay:Float = 0) {
+	function onIntroDone(?fadeDelay:Float = 0)
+	{
 		FlxTween.tween(logo, {alpha: 0}, 1, {
 			startDelay: fadeDelay,
 			ease: FlxEase.linear,
-			onComplete: function(_) {
+			onComplete: function(_)
+			{
 				FlxG.switchState(TitleState.new);
 			}
 		});
 	}
 
-	function doIntro() {
+	function doIntro()
+	{
 		#if debug // for testing purposes
-			startVideo('broCopiedDenpa', 'splash');
+		startVideo('broCopiedDenpa', 'splash');
 		#else
 		final debugShit = false;
 		final theIntro:Int = FlxG.random.int(0, maxIntros);
@@ -128,10 +136,11 @@ class StartupState extends MusicBeatState
 			startVideo('bambiStartup', 'splash'); // shit was crashing & I don't feel like making debug builds :P
 		else
 		{
-			switch (theIntro) {
+			switch (theIntro)
+			{
 				case 0:
 					FlxG.sound.play(Paths.sound('startup', 'splash'));
-					logo.scale.set(0.1,0.1);
+					logo.scale.set(0.1, 0.1);
 					logo.updateHitbox();
 					logo.screenCenter();
 					FlxTween.tween(logo, {alpha: 1, "scale.x": 1, "scale.y": 1}, 0.95, {ease: FlxEase.expoOut, onComplete: _ -> onIntroDone()});
@@ -139,14 +148,14 @@ class StartupState extends MusicBeatState
 					FlxG.sound.play(Paths.sound('startup', 'splash'));
 					FlxG.sound.play(Paths.sound('FIREINTHEHOLE', 'splash'));
 					logo.loadGraphic(Paths.image('lobotomy', 'splash'));
-					logo.scale.set(0.1,0.1);
+					logo.scale.set(0.1, 0.1);
 					logo.updateHitbox();
 					logo.screenCenter();
 					FlxTween.tween(logo, {alpha: 1, "scale.x": 1, "scale.y": 1}, 1.35, {ease: FlxEase.expoOut, onComplete: _ -> onIntroDone()});
 				case 2:
 					FlxG.sound.play(Paths.sound('screwedEngine', 'splash'));
 					logo.loadGraphic(Paths.image('ScrewedLogo', 'splash'));
-					logo.scale.set(0.1,0.1);
+					logo.scale.set(0.1, 0.1);
 					logo.updateHitbox();
 					logo.screenCenter();
 					FlxTween.tween(logo, {alpha: 1, "scale.x": 1, "scale.y": 1}, 1.35, {ease: FlxEase.expoOut, onComplete: _ -> onIntroDone(0.6)});
@@ -154,7 +163,7 @@ class StartupState extends MusicBeatState
 					// secret muaahahhahhahaahha
 					FlxG.sound.play(Paths.sound('tada', 'splash'));
 					logo.loadGraphic(Paths.image('JavaScriptLogo', 'splash'));
-					logo.scale.set(0.1,0.1);
+					logo.scale.set(0.1, 0.1);
 					logo.updateHitbox();
 					logo.screenCenter();
 					FlxTween.tween(logo, {alpha: 1, "scale.x": 1, "scale.y": 1}, 1.35, {ease: FlxEase.expoOut, onComplete: _ -> onIntroDone(0.6)});
@@ -167,27 +176,26 @@ class StartupState extends MusicBeatState
 					{
 						FlxG.sound.play(Paths.sound('JollySanta', 'splash'));
 						logo.loadGraphic(Paths.image('JollySantaLogo', 'splash'));
-						logo.scale.set(0.1,0.1);
+						logo.scale.set(0.1, 0.1);
 						logo.updateHitbox();
 						logo.screenCenter();
 						FlxTween.tween(logo, {alpha: 1, "scale.x": 1, "scale.y": 1}, 2, {ease: FlxEase.expoOut, onComplete: _ -> onIntroDone(1.5)});
-					} 
-					else 
+					}
+					else
 						doIntro();
-					
+
 				case 7:
 					if (canAutism)
 					{
 						FlxG.sound.play(Paths.sound('aprilFools', 'splash'));
 						logo.loadGraphic(Paths.image('autism', 'splash'));
-						logo.scale.set(0.1,0.1);
+						logo.scale.set(0.1, 0.1);
 						logo.updateHitbox();
 						logo.screenCenter();
 						FlxTween.tween(logo, {alpha: 1, "scale.x": 1, "scale.y": 1}, 0.95, {ease: FlxEase.linear, onComplete: _ -> onIntroDone()});
-					} 
-					else 
+					}
+					else
 						doIntro();
-					
 			}
 		}
 		#end
@@ -195,7 +203,8 @@ class StartupState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (FlxG.keys.justPressed.ENTER) FlxG.switchState(TitleState.new);
+		if (FlxG.keys.justPressed.ENTER)
+			FlxG.switchState(TitleState.new);
 		super.update(elapsed);
 	}
 }

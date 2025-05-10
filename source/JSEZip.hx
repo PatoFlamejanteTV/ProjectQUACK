@@ -43,7 +43,7 @@ class JSEZip
 						continue; // was just a directory
 					}
 					path += file;
-					//trace("unzip " + path);
+					// trace("unzip " + path);
 
 					var data = unzipData(_entry);
 					var f = File.write(_dest + "/" + path, true);

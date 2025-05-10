@@ -29,31 +29,22 @@ using StringTools;
 class GameRendererSettingsSubState extends BaseOptionsMenu
 {
 	var fpsOption:Option;
+
 	public function new()
 	{
 		title = 'Game Renderer';
-		rpcTitle = 'Game Renderer Settings Menu'; //for Discord Rich Presence
+		rpcTitle = 'Game Renderer Settings Menu'; // for Discord Rich Presence
 
-		var option:Option = new Option('Video Rendering Mode', //Name
+		var option:Option = new Option('Video Rendering Mode', // Name
 			#if windows 'If checked, the game will render songs you play to an MP4.\nThey will be located in a folder inside assets called gameRenders.' #else 'If checked, the game will render each frame as a screenshot into a folder. They can then be rendered into MP4s using FFmpeg.\nThey are located in a folder called gameRenders.' #end,
-			'ffmpegMode',
-			'bool',
-			false);
+			'ffmpegMode', 'bool', false);
 		addOption(option);
 
-		var option:Option = new Option('Info Shown: ',
-			"Choose what info it should show while rendering a song.",
-			'ffmpegInfo',
-			'string',
-			'None',
+		var option:Option = new Option('Info Shown: ', "Choose what info it should show while rendering a song.", 'ffmpegInfo', 'string', 'None',
 			['None', 'Rendering Time', 'Time Remaining', 'Frame Time']);
 		addOption(option);
 
-        	var option:Option = new Option('Video Framerate',
-			"How much FPS would you like for your videos?",
-			'targetFPS',
-			'float',
-			60);
+		var option:Option = new Option('Video Framerate', "How much FPS would you like for your videos?", 'targetFPS', 'float', 60);
 		addOption(option);
 
 		final refreshRate:Int = FlxG.stage.application.window.displayMode.refreshRate;
@@ -66,18 +57,11 @@ class GameRendererSettingsSubState extends BaseOptionsMenu
 		option.onChange = onChangeFramerate;
 		fpsOption = option;
 
-		var option:Option = new Option('Unlock Framerate', //Name
-			'If checked, the framerate will be uncapped while rendering a song.\nNOTE: This does not affect the video framerate!',
-			'unlockFPS',
-			'bool',
-			false);
+		var option:Option = new Option('Unlock Framerate', // Name
+			'If checked, the framerate will be uncapped while rendering a song.\nNOTE: This does not affect the video framerate!', 'unlockFPS', 'bool', false);
 		addOption(option);
 
-		var option:Option = new Option('Video Bitrate: ',
-			"Use this option to set your video's bitrate!",
-			'renderBitrate',
-			'float',
-			5.00);
+		var option:Option = new Option('Video Bitrate: ', "Use this option to set your video's bitrate!", 'renderBitrate', 'float', 5.00);
 		addOption(option);
 
 		option.minValue = 1.0;
@@ -88,32 +72,19 @@ class GameRendererSettingsSubState extends BaseOptionsMenu
 		option.displayFormat = '%v Mbps';
 
 		var option:Option = new Option('Video Encoder: ',
-			"Which video encoder would you like?\nThey all have differences like rendering speed, quality, etc.",
-			'vidEncoder',
-			'string',
-			'libx264',
+			"Which video encoder would you like?\nThey all have differences like rendering speed, quality, etc.", 'vidEncoder', 'string', 'libx264',
 			['libx264', 'libx264rgb', 'libx265', 'libxvid', 'libsvtav1', 'mpeg2video']);
 		addOption(option);
 
-		var option:Option = new Option('Classic Rendering Mode', //Name
-			'If checked, the game will use the old Rendering Mode from 1.20.0.',
-			'oldFFmpegMode',
-			'bool',
+		var option:Option = new Option('Classic Rendering Mode', // Name
+			'If checked, the game will use the old Rendering Mode from 1.20.0.', 'oldFFmpegMode', 'bool', false);
+		addOption(option);
+
+		var option:Option = new Option('Lossless Screenshots', "If checked, screenshots will save as PNGs.\nOtherwise, It uses JPEG.", 'lossless', 'bool',
 			false);
 		addOption(option);
 
-		var option:Option = new Option('Lossless Screenshots',
-			"If checked, screenshots will save as PNGs.\nOtherwise, It uses JPEG.",
-			'lossless',
-			'bool',
-			false);
-		addOption(option);
-
-		var option:Option = new Option('JPEG Quality',
-			"Change the JPEG quality here.\nThe recommended value is 50.",
-			'quality',
-			'int',
-			50);
+		var option:Option = new Option('JPEG Quality', "Change the JPEG quality here.\nThe recommended value is 50.", 'quality', 'int', 50);
 		addOption(option);
 
 		option.minValue = 1;
@@ -122,10 +93,8 @@ class GameRendererSettingsSubState extends BaseOptionsMenu
 		option.decimals = 0;
 
 		var option:Option = new Option('Garbage Collection Rate',
-			"After how many seconds rendered should a garbage collection be performed?\nIf it's set to 0, the game will not run GC at all.",
-			'renderGCRate',
-			'float',
-			5.0);
+			"After how many seconds rendered should a garbage collection be performed?\nIf it's set to 0, the game will not run GC at all.", 'renderGCRate',
+			'float', 5.0);
 		addOption(option);
 
 		option.minValue = 0;
@@ -135,10 +104,11 @@ class GameRendererSettingsSubState extends BaseOptionsMenu
 		option.decimals = 1;
 		option.displayFormat = '%vs';
 
-		cameras = [FlxG.cameras.list[FlxG.cameras.list.length-1]];
-		
+		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+
 		super();
 	}
+
 	function onChangeFramerate()
 	{
 		fpsOption.scrollSpeed = fpsOption.getValue() / 2;

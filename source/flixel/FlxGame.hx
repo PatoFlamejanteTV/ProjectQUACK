@@ -582,7 +582,7 @@ class FlxGame extends Sprite
 		#if FLX_DEBUG
 		_skipSplash = true;
 		#end
-		
+
 		if (_skipSplash)
 		{
 			_nextState = _initialState;
@@ -590,7 +590,7 @@ class FlxGame extends Sprite
 		}
 		else
 		{
-			_nextState = ()->new FlxIntroSplash(_initialState);
+			_nextState = () -> new FlxIntroSplash(_initialState);
 			_skipSplash = true; // only play it once
 		}
 
@@ -764,19 +764,20 @@ class FlxGame extends Sprite
 
 	function updateElapsed():Void
 	{
-			if (FlxG.fixedTimestep)
-			{
-				FlxG.elapsed = FlxG.timeScale * _stepSeconds; // fixed timestep
-			}
-			else
-			{
-				FlxG.elapsed = FlxG.timeScale * (_elapsedMS / 1000); // variable timestep
+		if (FlxG.fixedTimestep)
+		{
+			FlxG.elapsed = FlxG.timeScale * _stepSeconds; // fixed timestep
+		}
+		else
+		{
+			FlxG.elapsed = FlxG.timeScale * (_elapsedMS / 1000); // variable timestep
 
-				var max = FlxG.maxElapsed * FlxG.timeScale;
-				if (FlxG.elapsed > max)
-					FlxG.elapsed = max;
-			}
-			if (Type.getClassName(Type.getClass(FlxG.state)) == 'PlayState' && ClientPrefs.ffmpegMode) FlxG.elapsed = 1 / ClientPrefs.targetFPS;
+			var max = FlxG.maxElapsed * FlxG.timeScale;
+			if (FlxG.elapsed > max)
+				FlxG.elapsed = max;
+		}
+		if (Type.getClassName(Type.getClass(FlxG.state)) == 'PlayState' && ClientPrefs.ffmpegMode)
+			FlxG.elapsed = 1 / ClientPrefs.targetFPS;
 	}
 
 	function updateInput():Void

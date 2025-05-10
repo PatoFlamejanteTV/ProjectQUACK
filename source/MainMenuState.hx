@@ -26,15 +26,15 @@ class MainMenuState extends MusicBeatState
 {
 	public static final gitCommit:String = HaxeCommit.getGitCommitHash();
 
-	public static var psychEngineJSVersionNumber:String = '1.46.0'; //This is also used for Discord RPC
-	public static var psychEngineJSVersion:String = psychEngineJSVersionNumber #if commit + ' (Commit $gitCommit)' #end; //This is also used for Discord RPC
-	public static var psychEngineVersion:String = '0.6.3'; //This is also used for Discord RPC
+	public static var psychEngineJSVersionNumber:String = '1.46.0'; // This is also used for Discord RPC
+	public static var psychEngineJSVersion:String = psychEngineJSVersionNumber #if commit + ' (Commit $gitCommit)' #end; // This is also used for Discord RPC
+	public static var psychEngineVersion:String = '0.6.3'; // This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
-	
+
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
@@ -94,7 +94,6 @@ class MainMenuState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
-
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
@@ -109,7 +108,7 @@ class MainMenuState extends MusicBeatState
 		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		magenta.color = 0xFFfd719b;
 		add(magenta);
-		
+
 		// magenta.scrollFactor.set();
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
@@ -123,7 +122,7 @@ class MainMenuState extends MusicBeatState
 		for (i in 0...optionShit.length)
 		{
 			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
-			var menuItem:FlxSprite = new FlxSprite(0, (i * 140)  + offset);
+			var menuItem:FlxSprite = new FlxSprite(0, (i * 140) + offset);
 			menuItem.scale.x = scale;
 			menuItem.scale.y = scale;
 			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
@@ -134,10 +133,11 @@ class MainMenuState extends MusicBeatState
 			menuItem.screenCenter(X);
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
-			if(optionShit.length < 6) scr = 0;
+			if (optionShit.length < 6)
+				scr = 0;
 			menuItem.scrollFactor.set(0, scr);
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
-			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
+			// menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
 		}
 
@@ -193,7 +193,8 @@ class MainMenuState extends MusicBeatState
 	}
 
 	var selectedSomethin:Bool = false;
-	//credit to stefan2008 and sb engine for this code
+
+	// credit to stefan2008 and sb engine for this code
 	function tipTextStartScrolling()
 	{
 		tipText.x = tipTextMargin;
@@ -208,18 +209,21 @@ class MainMenuState extends MusicBeatState
 			});
 		});
 	}
+
 	override function beatHit()
 	{
-		if (curBeat % 2 == 0) 
+		if (curBeat % 2 == 0)
 		{
 			super.beatHit();
-	
+
 			FlxG.camera.zoom += 0.025;
 
 			FlxTween.tween(FlxG.camera, {zoom: 1}, Conductor.crochet / 1200, {ease: FlxEase.quadOut});
 		}
 	}
-	function changeTipText() {
+
+	function changeTipText()
+	{
 		var selectedText:String = '';
 		var textArray:Array<String> = CoolUtil.coolTextFile(Paths.txt('funnyTips'));
 
@@ -228,11 +232,15 @@ class MainMenuState extends MusicBeatState
 		selectedText = textArray[FlxG.random.int(0, (textArray.length - 1))].replace('--', '\n');
 		FlxTween.tween(tipText, {alpha: 0}, 1, {
 			ease: FlxEase.linear,
-			onComplete: function(freak:FlxTween) {
-				if (selectedText != lastString) {
+			onComplete: function(freak:FlxTween)
+			{
+				if (selectedText != lastString)
+				{
 					tipText.text = selectedText;
 					lastString = selectedText;
-				} else {
+				}
+				else
+				{
 					selectedText = textArray[FlxG.random.int(0, (textArray.length - 1))].replace('--', '\n');
 					tipText.text = selectedText;
 				}
@@ -241,7 +249,8 @@ class MainMenuState extends MusicBeatState
 
 				FlxTween.tween(tipText, {alpha: 1}, 1, {
 					ease: FlxEase.linear,
-					onComplete: function(freak:FlxTween) {
+					onComplete: function(freak:FlxTween)
+					{
 						isTweening = false;
 					}
 				});
@@ -265,7 +274,8 @@ class MainMenuState extends MusicBeatState
 		if (FlxG.sound != null && FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
-			if(FreeplayState.vocals != null) FreeplayState.vocals.volume += 0.5 * elapsed;
+			if (FreeplayState.vocals != null)
+				FreeplayState.vocals.volume += 0.5 * elapsed;
 		}
 
 		if (!selectedSomethin)
@@ -300,7 +310,8 @@ class MainMenuState extends MusicBeatState
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 
-					if(ClientPrefs.flashing) FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+					if (ClientPrefs.flashing)
+						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
 					menuItems.forEach(function(spr:FlxSprite)
 					{
@@ -342,11 +353,12 @@ class MainMenuState extends MusicBeatState
 					});
 				}
 			}
-		#if (desktop)
-		else if (FlxG.keys.anyJustPressed(debugKeys)) {
-			FlxG.switchState(MasterEditorMenu.new);
-		}
-		#end
+			#if (desktop)
+			else if (FlxG.keys.anyJustPressed(debugKeys))
+			{
+				FlxG.switchState(MasterEditorMenu.new);
+			}
+			#end
 		}
 
 		super.update(elapsed);
@@ -375,7 +387,8 @@ class MainMenuState extends MusicBeatState
 			{
 				spr.animation.play('selected');
 				var add:Float = 0;
-				if(menuItems.length > 4) {
+				if (menuItems.length > 4)
+				{
 					add = menuItems.length * 8;
 				}
 				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);

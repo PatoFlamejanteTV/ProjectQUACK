@@ -10,8 +10,9 @@ class BenchmarkState extends FlxState
 {
 	var daFlixelLogo:Flixel;
 
-	//this is so its actually possible to leave the state
+	// this is so its actually possible to leave the state
 	private var controls(get, never):Controls;
+
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
 
@@ -34,18 +35,23 @@ class BenchmarkState extends FlxState
 
 	override function destroy()
 	{
-		if (daFlixelLogo != null) {
+		if (daFlixelLogo != null)
+		{
 			@:privateAccess {
-				for (mesh in daFlixelLogo.meshs) {
-					if (mesh != null) {
+				for (mesh in daFlixelLogo.meshs)
+				{
+					if (mesh != null)
+					{
 						// Dispose material first, as it may rely on geometry
-						if (mesh.material != null) {
+						if (mesh.material != null)
+						{
 							mesh.material.dispose();
 							mesh.material = null;
 						}
-						
+
 						// Dispose geometry next
-						if (mesh.geometry != null) {
+						if (mesh.geometry != null)
+						{
 							mesh.geometry.dispose();
 							mesh.geometry = null;
 						}
@@ -57,7 +63,8 @@ class BenchmarkState extends FlxState
 				}
 
 				// Dispose the 3D view (if it exists)
-				if (daFlixelLogo.view != null) {
+				if (daFlixelLogo.view != null)
+				{
 					daFlixelLogo.view.dispose();
 					daFlixelLogo.view = null;
 				}
@@ -69,9 +76,10 @@ class BenchmarkState extends FlxState
 
 		super.destroy();
 	}
+
 	override function update(elapsed:Float)
 	{
-		if(controls.BACK)
+		if (controls.BACK)
 		{
 			FlxG.switchState(new MasterEditorMenu());
 			FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.daMenuMusic));

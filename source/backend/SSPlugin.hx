@@ -129,14 +129,17 @@ class SSPlugin extends flixel.FlxBasic
 
 	var buggedKillTime:Float = 1.5;
 	var aliveTime:Float = 0;
+
 	override public function update(elapsed:Float):Void
 	{
 		if (FlxG.keys.checkStatus(screenshotKey, JUST_PRESSED) && enabled)
 			screenshot();
 
-		if (flashSprite.alpha > 0 || screenshotSprite.alpha > 0) aliveTime += elapsed;
-		else aliveTime = 0;
-		if (aliveTime >= buggedKillTime) 
+		if (flashSprite.alpha > 0 || screenshotSprite.alpha > 0)
+			aliveTime += elapsed;
+		else
+			aliveTime = 0;
+		if (aliveTime >= buggedKillTime)
 		{
 			FlxTween.cancelTweensOf(flashSprite);
 			FlxTween.cancelTweensOf(screenshotSprite);

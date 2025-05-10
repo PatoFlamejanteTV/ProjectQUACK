@@ -6,6 +6,7 @@ class HealthIcon extends FlxSprite
 {
 	public var sprTracker:FlxSprite;
 	public var canBounce:Bool = false;
+
 	private var isPlayer:Bool = false;
 	private var char:String = '';
 
@@ -27,7 +28,8 @@ class HealthIcon extends FlxSprite
 		if (sprTracker != null)
 			setPosition(sprTracker.x + sprTracker.width + 12, sprTracker.y - 30);
 
-		if(canBounce) {
+		if (canBounce)
+		{
 			var mult:Float = FlxMath.lerp(1, scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
 			scale.set(mult, mult);
 			updateHitbox();
@@ -35,53 +37,68 @@ class HealthIcon extends FlxSprite
 	}
 
 	public var iconOffsets:Array<Float> = [0, 0];
-	public function changeIcon(char:String) {
-		if(this.char != char) {
+
+	public function changeIcon(char:String)
+	{
+		if (this.char != char)
+		{
 			var name:String = 'icons/' + char;
-			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-' + char; //Older versions of psych engine's support
-			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-face'; //Prevents crash from missing icon
+			if (!Paths.fileExists('images/' + name + '.png', IMAGE))
+				name = 'icons/icon-' + char; // Older versions of psych engine's support
+			if (!Paths.fileExists('images/' + name + '.png', IMAGE))
+				name = 'icons/icon-face'; // Prevents crash from missing icon
 			var file:Dynamic = Paths.image(name);
 
 			if (file == null)
 				file == Paths.image('icons/icon-face');
-			else if (!Paths.fileExists('images/icons/icon-face.png', IMAGE)){
+			else if (!Paths.fileExists('images/icons/icon-face.png', IMAGE))
+			{
 				// throw "Don't delete the placeholder icon";
 				trace("Warning: could not find the placeholder icon, expect crashes!");
 			}
 
-			loadGraphic(file); //Load stupidly first for getting the file size
+			loadGraphic(file); // Load stupidly first for getting the file size
 			initialWidth = width;
 			initialHeight = height;
 			var width2 = width;
-			if (width == 450) {
-				loadGraphic(file, true, Math.floor(width / 3), Math.floor(height)); //Then load it fr // winning icons go br
+			if (width == 450)
+			{
+				loadGraphic(file, true, Math.floor(width / 3), Math.floor(height)); // Then load it fr // winning icons go br
 				iconOffsets[0] = (width - 150) / 3;
 				iconOffsets[1] = (height - 150) / 3;
-			} else {
-				loadGraphic(file, true, Math.floor(width / 2), Math.floor(height)); //Then load it fr // winning icons go br
+			}
+			else
+			{
+				loadGraphic(file, true, Math.floor(width / 2), Math.floor(height)); // Then load it fr // winning icons go br
 				iconOffsets[0] = (width - 150) / 2;
 				iconOffsets[1] = (height - 150) / 2;
 			}
 
 			updateHitbox();
 
-			if (width2 == 450) {
+			if (width2 == 450)
+			{
 				animation.add(char, [0, 1, 2], 0, false, isPlayer);
-			} else {
+			}
+			else
+			{
 				animation.add(char, [0, 1], 0, false, isPlayer);
 			}
 			animation.play(char);
 			this.char = char;
 
 			antialiasing = ClientPrefs.globalAntialiasing;
-			if(char.endsWith('-pixel')) {
+			if (char.endsWith('-pixel'))
+			{
 				antialiasing = false;
 			}
 		}
 	}
 
-	public function bounce() {
-		if(canBounce) {
+	public function bounce()
+	{
+		if (canBounce)
+		{
 			var mult:Float = 1.2;
 			scale.set(mult, mult);
 			updateHitbox();
@@ -90,14 +107,19 @@ class HealthIcon extends FlxSprite
 
 	override function updateHitbox()
 	{
-		if (ClientPrefs.iconBounceType != 'Golden Apple' && ClientPrefs.iconBounceType != 'Dave and Bambi' || !Std.isOfType(FlxG.state, PlayState))
+		if (ClientPrefs.iconBounceType != 'Golden Apple'
+			&& ClientPrefs.iconBounceType != 'Dave and Bambi'
+			|| !Std.isOfType(FlxG.state, PlayState))
 		{
-		super.updateHitbox();
-		offset.x = iconOffsets[0];
-		offset.y = iconOffsets[1];
-		} else {
 			super.updateHitbox();
-			if (initialWidth != (150 * animation.numFrames) || initialHeight != 150) //Fixes weird icon offsets when they're HUMONGUS (sussy)
+			offset.x = iconOffsets[0];
+			offset.y = iconOffsets[1];
+		}
+		else
+		{
+			super.updateHitbox();
+			if (initialWidth != (150 * animation.numFrames)
+				|| initialHeight != 150) // Fixes weird icon offsets when they're HUMONGUS (sussy)
 			{
 				offset.x = iconOffsets[0];
 				offset.y = iconOffsets[1];
@@ -105,7 +127,8 @@ class HealthIcon extends FlxSprite
 		}
 	}
 
-	public function getCharacter():String {
+	public function getCharacter():String
+	{
 		return char;
 	}
 }

@@ -3,12 +3,12 @@ package stages;
 import stages.objects.*;
 import GameOverSubstate;
 import DialogueBox;
-
 import openfl.utils.Assets as OpenFlAssets;
 
 class School extends BaseStage
 {
 	var bgGirls:BackgroundGirls;
+
 	override function create()
 	{
 		var _song = PlayState.SONG;
@@ -32,7 +32,8 @@ class School extends BaseStage
 		bgStreet.antialiasing = false;
 
 		var widShit = Std.int(bgSky.width * PlayState.daPixelZoom);
-		if(!ClientPrefs.lowQuality) {
+		if (!ClientPrefs.lowQuality)
+		{
 			var fgTrees:BGSprite = new BGSprite('weeb/weebTreesBack', repositionShit + 170, 130, 0.9, 0.9);
 			fgTrees.setGraphicSize(Std.int(widShit * 0.8));
 			fgTrees.updateHitbox();
@@ -48,7 +49,8 @@ class School extends BaseStage
 		add(bgTrees);
 		bgTrees.antialiasing = false;
 
-		if(!ClientPrefs.lowQuality) {
+		if (!ClientPrefs.lowQuality)
+		{
 			var treeLeaves:BGSprite = new BGSprite('weeb/petals', repositionShit, -40, 0.85, 0.85, ['PETALS ALL'], true);
 			treeLeaves.setGraphicSize(widShit);
 			treeLeaves.updateHitbox();
@@ -66,14 +68,15 @@ class School extends BaseStage
 		bgStreet.updateHitbox();
 		bgTrees.updateHitbox();
 
-		if(!ClientPrefs.lowQuality) {
+		if (!ClientPrefs.lowQuality)
+		{
 			bgGirls = new BackgroundGirls(-100, 190);
 			bgGirls.scrollFactor.set(0.9, 0.9);
 			add(bgGirls);
 		}
 		setDefaultGF('gf-pixel');
 
-		if(isStoryMode && !seenCutscene)
+		if (isStoryMode && !seenCutscene)
 		{
 			switch (songName)
 			{
@@ -90,23 +93,26 @@ class School extends BaseStage
 
 	override function beatHit()
 	{
-		if(bgGirls != null) bgGirls.dance();
+		if (bgGirls != null)
+			bgGirls.dance();
 	}
 
 	// For events
 	override function eventCalled(eventName:String, value1:String, value2:String, flValue1:Null<Float>, flValue2:Null<Float>, strumTime:Float)
 	{
-		switch(eventName)
+		switch (eventName)
 		{
 			case "BG Freaks Expression":
-				if(bgGirls != null) bgGirls.swapDanceType();
+				if (bgGirls != null)
+					bgGirls.swapDanceType();
 		}
 	}
 
 	var doof:DialogueBox = null;
+
 	function initDoof()
 	{
-		var file:String = Paths.txt(songName + '/' + songName + 'Dialogue'); //Checks for vanilla/Senpai dialogue
+		var file:String = Paths.txt(songName + '/' + songName + 'Dialogue'); // Checks for vanilla/Senpai dialogue
 		trace(file);
 		#if MODS_ALLOWED
 		if (!FileSystem.exists(file))
@@ -125,13 +131,14 @@ class School extends BaseStage
 		doof.nextDialogueThing = PlayState.instance.startNextDialogue;
 		doof.skipDialogueThing = PlayState.instance.skipDialogue;
 	}
-	
+
 	function schoolIntro():Void
 	{
 		inCutscene = true;
 		var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
 		black.scrollFactor.set();
-		if(songName == 'senpai') add(black);
+		if (songName == 'senpai')
+			add(black);
 
 		new FlxTimer().start(0.3, function(tmr:FlxTimer)
 		{

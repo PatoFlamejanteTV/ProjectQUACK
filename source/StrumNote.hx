@@ -12,38 +12,46 @@ using StringTools;
 class StrumNote extends FlxSprite
 {
 	public var rgbShader:RGBShaderReference;
-    	public var notes_angle:Null<Float> = null;
+	public var notes_angle:Null<Float> = null;
 	public var resetAnim:Float = 0;
 	public var noteData:Int = 0;
-	public var direction:Float = 90;//plan on doing scroll directions soon -bb
-	public var downScroll:Bool = false;//plan on doing scroll directions soon -bb
+	public var direction:Float = 90; // plan on doing scroll directions soon -bb
+	public var downScroll:Bool = false; // plan on doing scroll directions soon -bb
 	public var sustainReduce:Bool = true;
-	
+
 	public var player:Int;
 	public var ogNoteskin:String = null;
-	
+
 	public var texture(default, set):String = null;
-	private function set_texture(value:String):String {
-		if(texture != value) {
+
+	private function set_texture(value:String):String
+	{
+		if (texture != value)
+		{
 			texture = (value != null ? value : "noteskins/NOTE_assets" + Note.getNoteSkinPostfix());
 			reloadNote();
 		}
 		return value;
 	}
+
 	public var useRGBShader:Bool = true;
 
-	public function getAngle() {
+	public function getAngle()
+	{
 		return (notes_angle == null ? angle : notes_angle);
 	}
 
-	public function new(x:Float, y:Float, leData:Int, player:Int, ?inEditor:Bool = false) {
+	public function new(x:Float, y:Float, leData:Int, player:Int, ?inEditor:Bool = false)
+	{
 		rgbShader = new RGBShaderReference(this, Note.initializeGlobalRGBShader(leData));
 		rgbShader.enabled = false;
-		if(PlayState.SONG != null && PlayState.SONG.disableNoteRGB || !ClientPrefs.enableColorShader) useRGBShader = false;
-		
+		if (PlayState.SONG != null && PlayState.SONG.disableNoteRGB || !ClientPrefs.enableColorShader)
+			useRGBShader = false;
+
 		var arr:Array<FlxColor> = ClientPrefs.arrowRGB[leData];
-		if(PlayState.isPixelStage) arr = ClientPrefs.arrowRGBPixel[leData];
-		if(arr != null && leData <= arr.length && useRGBShader)
+		if (PlayState.isPixelStage)
+			arr = ClientPrefs.arrowRGBPixel[leData];
+		if (arr != null && leData <= arr.length && useRGBShader)
 		{
 			@:bypassAccessor
 			{
@@ -58,13 +66,16 @@ class StrumNote extends FlxSprite
 		super(x, y);
 
 		var skin:String = null;
-		if(PlayState.SONG != null && PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1) skin = PlayState.SONG.arrowSkin;
-		else skin = Note.defaultNoteSkin;
+		if (PlayState.SONG != null && PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1)
+			skin = PlayState.SONG.arrowSkin;
+		else
+			skin = Note.defaultNoteSkin;
 
 		var customSkin:String = skin + Note.getNoteSkinPostfix();
-		if(Paths.fileExists('images/$customSkin.png', IMAGE)) skin = customSkin;
+		if (Paths.fileExists('images/$customSkin.png', IMAGE))
+			skin = customSkin;
 
-		texture = skin; //Load texture and anims
+		texture = skin; // Load texture and anims
 		ogNoteskin = skin;
 
 		scrollFactor.set();
@@ -73,9 +84,10 @@ class StrumNote extends FlxSprite
 	public function reloadNote()
 	{
 		var lastAnim:String = null;
-		if(animation.curAnim != null) lastAnim = animation.curAnim.name;
+		if (animation.curAnim != null)
+			lastAnim = animation.curAnim.name;
 
-		if(PlayState.isPixelStage)
+		if (PlayState.isPixelStage)
 		{
 			loadGraphic(Paths.image('pixelUI/' + texture));
 			width = width / 4;
@@ -142,13 +154,14 @@ class StrumNote extends FlxSprite
 		}
 		updateHitbox();
 
-		if(lastAnim != null)
+		if (lastAnim != null)
 		{
 			playAnim(lastAnim, true);
 		}
 	}
 
-	public function postAddedToGroup() {
+	public function postAddedToGroup()
+	{
 		playAnim('static');
 		x += Note.swagWidth * noteData;
 		x += 50;
@@ -156,11 +169,15 @@ class StrumNote extends FlxSprite
 		ID = noteData;
 	}
 
-	override function update(elapsed:Float) {
-		if (ClientPrefs.ffmpegMode) elapsed = 1 / ClientPrefs.targetFPS;
-		if(resetAnim > 0) {
+	override function update(elapsed:Float)
+	{
+		if (ClientPrefs.ffmpegMode)
+			elapsed = 1 / ClientPrefs.targetFPS;
+		if (resetAnim > 0)
+		{
 			resetAnim -= elapsed;
-			if(resetAnim <= 0) {
+			if (resetAnim <= 0)
+			{
 				playAnim('static');
 				resetAnim = 0;
 			}
@@ -168,48 +185,59 @@ class StrumNote extends FlxSprite
 		super.update(elapsed);
 	}
 
-	public function playAnim(anim:String, ?force:Bool = false, ?r:FlxColor, ?g:FlxColor, ?b:FlxColor) {
+	public function playAnim(anim:String, ?force:Bool = false, ?r:FlxColor, ?g:FlxColor, ?b:FlxColor)
+	{
 		animation.play(anim, force);
-		if(animation.curAnim != null)
+		if (animation.curAnim != null)
 		{
 			centerOffsets();
 			centerOrigin();
 		}
-		if(useRGBShader)
+		if (useRGBShader)
 		{
 			rgbShader.enabled = (animation.curAnim != null && animation.curAnim.name != 'static');
-			if (r != null && g != null && b != null) updateRGBColors(r, g, b);
-		} else if (!useRGBShader && rgbShader != null) rgbShader.enabled = false;
+			if (r != null && g != null && b != null)
+				updateRGBColors(r, g, b);
+		}
+		else if (!useRGBShader && rgbShader != null)
+			rgbShader.enabled = false;
 	}
-	public function updateNoteSkin(noteskin:String) {
-			if (texture == "noteskins/" + noteskin || noteskin == ogNoteskin || texture == noteskin) return; //if the noteskin to change to is the same as before then don't update it
-			if (noteskin != null && noteskin.length > 0) texture = "noteskins/" + noteskin;
-			else texture = "noteskins/NOTE_assets" + Note.getNoteSkinPostfix();
+
+	public function updateNoteSkin(noteskin:String)
+	{
+		if (texture == "noteskins/" + noteskin || noteskin == ogNoteskin || texture == noteskin)
+			return; // if the noteskin to change to is the same as before then don't update it
+		if (noteskin != null && noteskin.length > 0)
+			texture = "noteskins/" + noteskin;
+		else
+			texture = "noteskins/NOTE_assets" + Note.getNoteSkinPostfix();
 	}
-	public function updateRGBColors(?r:FlxColor, ?g:FlxColor, ?b:FlxColor) {
-        if (rgbShader != null)
+
+	public function updateRGBColors(?r:FlxColor, ?g:FlxColor, ?b:FlxColor)
+	{
+		if (rgbShader != null)
 		{
 			rgbShader.r = r;
 			rgbShader.g = g;
 			rgbShader.b = b;
 		}
 	}
+
 	public function resetRGB()
 	{
-		if (rgbShader != null && animation.curAnim != null && animation.curAnim.name == 'static') 
+		if (rgbShader != null && animation.curAnim != null && animation.curAnim.name == 'static')
 		{
 			switch (ClientPrefs.noteColorStyle)
 			{
 				case 'Quant-Based', 'Rainbow', 'Char-Based':
-				rgbShader.r = 0xFFF9393F;
-				rgbShader.g = 0xFFFFFFFF;
-				rgbShader.b = 0xFF651038;
+					rgbShader.r = 0xFFF9393F;
+					rgbShader.g = 0xFFFFFFFF;
+					rgbShader.b = 0xFF651038;
 				case 'Grayscale':
-				rgbShader.r = 0xFFA0A0A0;
-				rgbShader.g = FlxColor.WHITE;
-				rgbShader.b = 0xFF424242;
+					rgbShader.r = 0xFFA0A0A0;
+					rgbShader.g = FlxColor.WHITE;
+					rgbShader.b = 0xFF424242;
 				default:
-				
 			}
 			rgbShader.enabled = false;
 		}

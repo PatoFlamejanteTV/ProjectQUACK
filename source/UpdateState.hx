@@ -51,6 +51,7 @@ class UpdateState extends MusicBeatState
 	var currentTask:String = "download_update"; // download_update,install_update
 
 	var checker:FlxBackdrop;
+
 	override function create()
 	{
 		super.create();
@@ -134,7 +135,7 @@ class UpdateState extends MusicBeatState
 					time = 0;
 
 					// Divide file size by data speed to obtain download time.
-					downloadTime = ((maxFileSize-downloadedSize) / (speed));
+					downloadTime = ((maxFileSize - downloadedSize) / (speed));
 				}
 
 				if (downloadedSize != lastVare)
@@ -153,7 +154,7 @@ class UpdateState extends MusicBeatState
 				progressText.text = FlxMath.roundDecimal(entire_progress, 2) + "%";
 				download_info.text = currentFile;
 				download_info.x = (progBar_bg.x + progBar_bg.width) - download_info.width;
-			default: 
+			default:
 		}
 	}
 
@@ -168,9 +169,9 @@ class UpdateState extends MusicBeatState
 		#elseif android
 		return 'android';
 		/*
-		#elseif ios
-		return 'iOS';
-		*/
+			#elseif ios
+			return 'iOS';
+		 */
 		#else
 		return '';
 		#end
@@ -179,7 +180,9 @@ class UpdateState extends MusicBeatState
 	inline function getUpdateLink()
 	{
 		var fileEnd = #if android 'apk' #else 'zip' #end;
-		online_url = "https://github.com/JordanSantiagoYT/FNF-JS-Engine/releases/download/" + TitleState.updateVersion + '/FNF-JS-Engine-${getPlatform()}.$fileEnd';
+		online_url = "https://github.com/JordanSantiagoYT/FNF-JS-Engine/releases/download/"
+			+ TitleState.updateVersion
+			+ '/FNF-JS-Engine-${getPlatform()}.$fileEnd';
 		trace("update url: " + online_url);
 	}
 

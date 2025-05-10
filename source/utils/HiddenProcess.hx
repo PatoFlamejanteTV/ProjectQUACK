@@ -1,7 +1,6 @@
 package utils;
 
 // code from https://github.com/Slushi-Github/Slushi-Engine/blob/main/funkinscsource/slushi/others/systemUtils/HiddenProcess.hx
-
 #if cpp
 /*
  * Copyright (C)2005-2019 Haxe Foundation
@@ -112,8 +111,7 @@ class HiddenProcess
 	{
 		if (detached)
 			throw "Detached process is not supported on this platform";
-		p = try NativeProcess.process_run_with_show(cmd, args, 0)
-		catch (e:Dynamic) throw "Process creation failure : " + cmd;
+		p = try NativeProcess.process_run_with_show(cmd, args, 0) catch (e:Dynamic) throw "Process creation failure : " + cmd;
 		stdin = new Stdin(p);
 		stdout = new Stdout(p, true);
 		stderr = new Stdout(p, false);

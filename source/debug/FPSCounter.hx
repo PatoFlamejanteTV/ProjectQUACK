@@ -14,6 +14,7 @@ class FPSCounter extends TextField
 		The current memory usage (WARNING: this is NOT your total program memory usage, rather it shows the garbage collector memory)
 	**/
 	public var memory(get, never):Float;
+
 	inline function get_memory():Float
 		return Memory.gay();
 
@@ -43,15 +44,20 @@ class FPSCounter extends TextField
 
 	var fpsMultiplier:Float = 1.0;
 	var deltaTimeout:Float = 0.0;
+
 	public var timeoutDelay:Float = 50;
+
 	var now:Float = 0;
+
 	// Event Handlers
 	override function __enterFrame(deltaTime:Float):Void
 	{
-		if (!ClientPrefs.showFPS) return;
+		if (!ClientPrefs.showFPS)
+			return;
 		now = haxe.Timer.stamp() * 1000;
 		times.push(now);
-		while (times[0] < now - 1000 / fpsMultiplier) times.shift();
+		while (times[0] < now - 1000 / fpsMultiplier)
+			times.shift();
 		if (deltaTimeout <= timeoutDelay)
 		{
 			deltaTimeout += deltaTime;
@@ -60,12 +66,20 @@ class FPSCounter extends TextField
 
 		if (Std.isOfType(FlxG.state, PlayState) && !PlayState.instance.trollingMode)
 		{
-			try { fpsMultiplier = PlayState.instance.playbackRate; }
-			catch (e:Dynamic) { fpsMultiplier = 1.0; }
+			try
+			{
+				fpsMultiplier = PlayState.instance.playbackRate;
+			}
+			catch (e:Dynamic)
+			{
+				fpsMultiplier = 1.0;
+			}
 		}
-		else fpsMultiplier = 1.0;
+		else
+			fpsMultiplier = 1.0;
 
-		if (memory > mempeak) mempeak = memory;
+		if (memory > mempeak)
+			mempeak = memory;
 
 		currentFPS = Math.min(FlxG.drawFramerate, times.length) / fpsMultiplier;
 		updateText();
@@ -90,13 +104,14 @@ class FPSCounter extends TextField
 		deltaTimeout = 0.0;
 	}
 
-	public dynamic function updateText():Void   // so people can override it in hscript
+	public dynamic function updateText():Void // so people can override it in hscript
 	{
 		text = "FPS: " + (ClientPrefs.ffmpegMode ? ClientPrefs.targetFPS : Math.round(currentFPS));
 		if (ClientPrefs.ffmpegMode)
 			text += " (Rendering Mode)";
 
-		if (ClientPrefs.showRamUsage) text += "\nMemory: " + FlxStringUtil.formatBytes(memory) + (ClientPrefs.showMaxRamUsage ? " / " + FlxStringUtil.formatBytes(mempeak) : "");
+		if (ClientPrefs.showRamUsage)
+			text += "\nMemory: " + FlxStringUtil.formatBytes(memory) + (ClientPrefs.showMaxRamUsage ? " / " + FlxStringUtil.formatBytes(mempeak) : "");
 		if (ClientPrefs.debugInfo)
 		{
 			text += '\nCurrent state: ${Type.getClassName(Type.getClass(FlxG.state))}';

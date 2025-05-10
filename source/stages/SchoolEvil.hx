@@ -15,12 +15,12 @@ class SchoolEvil extends BaseStage
 		GameOverSubstate.loopSoundName = 'gameOver-pixel';
 		GameOverSubstate.endSoundName = 'gameOverEnd-pixel';
 		GameOverSubstate.characterName = 'bf-pixel-dead';
-		
+
 		var posX = 400;
 		var posY = 200;
 
 		var bg:BGSprite;
-		if(!ClientPrefs.lowQuality)
+		if (!ClientPrefs.lowQuality)
 			bg = new BGSprite('weeb/animatedEvilSchool', posX, posY, 0.8, 0.9, ['background 2'], true);
 		else
 			bg = new BGSprite('weeb/animatedEvilSchool_low', posX, posY, 0.8, 0.9);
@@ -30,7 +30,7 @@ class SchoolEvil extends BaseStage
 		add(bg);
 		setDefaultGF('gf-pixel');
 
-		if(isStoryMode && !seenCutscene)
+		if (isStoryMode && !seenCutscene)
 		{
 			FlxG.sound.playMusic(Paths.music('LunchboxScary'), 0);
 			FlxG.sound.music.fadeIn(1, 0, 0.8);
@@ -38,6 +38,7 @@ class SchoolEvil extends BaseStage
 			setStartCallback(schoolIntro);
 		}
 	}
+
 	override function createPost()
 	{
 		var trail:FlxTrail = new FlxTrail(dad, null, 4, 24, 0.3, 0.069);
@@ -46,25 +47,27 @@ class SchoolEvil extends BaseStage
 
 	// Ghouls event
 	var bgGhouls:BGSprite;
+
 	override function eventCalled(eventName:String, value1:String, value2:String, flValue1:Null<Float>, flValue2:Null<Float>, strumTime:Float)
 	{
-		switch(eventName)
+		switch (eventName)
 		{
 			case "Trigger BG Ghouls":
-				if(!ClientPrefs.lowQuality)
+				if (!ClientPrefs.lowQuality)
 				{
 					bgGhouls.dance(true);
 					bgGhouls.visible = true;
 				}
 		}
 	}
+
 	override function eventPushed(event:Note.EventNote)
 	{
 		// used for preloading assets used on events
-		switch(event.event)
+		switch (event.event)
 		{
 			case "Trigger BG Ghouls":
-				if(!ClientPrefs.lowQuality)
+				if (!ClientPrefs.lowQuality)
 				{
 					bgGhouls = new BGSprite('weeb/bgGhouls', -100, 190, 0.9, 0.9, ['BG freaks glitch instance'], false);
 					bgGhouls.setGraphicSize(Std.int(bgGhouls.width * PlayState.daPixelZoom));
@@ -73,7 +76,7 @@ class SchoolEvil extends BaseStage
 					bgGhouls.antialiasing = false;
 					bgGhouls.animation.finishCallback = function(name:String)
 					{
-						if(name == 'BG freaks glitch instance')
+						if (name == 'BG freaks glitch instance')
 							bgGhouls.visible = false;
 					}
 					addBehindGF(bgGhouls);
@@ -82,9 +85,10 @@ class SchoolEvil extends BaseStage
 	}
 
 	var doof:DialogueBox = null;
+
 	function initDoof()
 	{
-		var file:String = Paths.txt(songName + '/' + songName + 'Dialogue'); //Checks for vanilla/Senpai dialogue
+		var file:String = Paths.txt(songName + '/' + songName + 'Dialogue'); // Checks for vanilla/Senpai dialogue
 		#if MODS_ALLOWED
 		if (!FileSystem.exists(file))
 		#else
@@ -102,7 +106,7 @@ class SchoolEvil extends BaseStage
 		doof.nextDialogueThing = PlayState.instance.startNextDialogue;
 		doof.skipDialogueThing = PlayState.instance.skipDialogue;
 	}
-	
+
 	function schoolIntro():Void
 	{
 		inCutscene = true;

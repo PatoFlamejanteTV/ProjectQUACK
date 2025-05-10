@@ -6,13 +6,10 @@ import cpp.ConstCharStar;
 import cpp.Function;
 import cpp.RawConstPointer;
 #end
-
 import sys.thread.Thread;
 import lime.app.Application;
-
 import hxdiscord_rpc.Discord;
 import hxdiscord_rpc.Types;
-
 import flixel.util.FlxStringUtil;
 
 class DiscordClient
@@ -26,17 +23,21 @@ class DiscordClient
 
 	public static function check()
 	{
-		if(ClientPrefs.discordRPC) initialize();
-		else if(isInitialized) shutdown();
+		if (ClientPrefs.discordRPC)
+			initialize();
+		else if (isInitialized)
+			shutdown();
 	}
-	
+
 	public static function prepare()
 	{
 		if (!isInitialized && ClientPrefs.discordRPC)
 			initialize();
 
-		Application.current.window.onClose.add(function() {
-			if(isInitialized) shutdown();
+		Application.current.window.onClose.add(function()
+		{
+			if (isInitialized)
+				shutdown();
 		});
 	}
 
@@ -45,16 +46,16 @@ class DiscordClient
 		isInitialized = false;
 		Discord.Shutdown();
 	}
-	
+
 	private static function onReady(request:RawConstPointer<DiscordUser>):Void
 	{
-		final user = cast (request[0].username, String);
-		final discriminator = cast (request[0].discriminator, String);
+		final user = cast(request[0].username, String);
+		final discriminator = cast(request[0].discriminator, String);
 
 		var message = '(Discord) Connected to User ';
-		if (discriminator != '0') //Old discriminators
+		if (discriminator != '0') // Old discriminators
 			message += '($user#$discriminator)';
-		else //New Discord IDs/Discriminator system
+		else // New Discord IDs/Discriminator system
 			message += '($user)';
 
 		trace(message);
@@ -63,12 +64,12 @@ class DiscordClient
 
 	private static function onError(errorCode:Int, message:ConstCharStar):Void
 	{
-		trace('Discord: Error ($errorCode: ${cast(message, String)})');
+		trace('Discord: Error ($errorCode: ${cast (message, String)})');
 	}
 
 	private static function onDisconnected(errorCode:Int, message:ConstCharStar):Void
 	{
-		trace('Discord: Disconnected ($errorCode: ${cast(message, String)})');
+		trace('Discord: Disconnected ($errorCode: ${cast (message, String)})');
 	}
 
 	public static function initialize()
@@ -79,7 +80,8 @@ class DiscordClient
 		discordHandlers.errored = Function.fromStaticFunction(onError);
 		Discord.Initialize(clientID, cpp.RawPointer.addressOf(discordHandlers), #if (hxdiscord_rpc > "1.2.4") false #else 1 #end, null);
 
-		if(!isInitialized) trace("Discord Client initialized");
+		if (!isInitialized)
+			trace("Discord Client initialized");
 
 		if (__thread == null)
 		{
@@ -103,11 +105,14 @@ class DiscordClient
 		isInitialized = true;
 	}
 
-	public static function changePresence(details:String = 'In the Menus', ?state:String, ?smallImageKey:String, ?hasStartTimestamp:Bool, ?endTimestamp:Float, largeImageKey:String = 'icon')
+	public static function changePresence(details:String = 'In the Menus', ?state:String, ?smallImageKey:String, ?hasStartTimestamp:Bool, ?endTimestamp:Float,
+			largeImageKey:String = 'icon')
 	{
 		var startTimestamp:Float = 0;
-		if (hasStartTimestamp) startTimestamp = Date.now().getTime();
-		if (endTimestamp > 0) endTimestamp = startTimestamp + endTimestamp;
+		if (hasStartTimestamp)
+			startTimestamp = Date.now().getTime();
+		if (endTimestamp > 0)
+			endTimestamp = startTimestamp + endTimestamp;
 
 		presence.state = state;
 		presence.details = details;
@@ -124,7 +129,7 @@ class DiscordClient
 	{
 		Discord.UpdatePresence(RawConstPointer.addressOf(presence.__presence));
 	}
-	
+
 	inline public static function resetClientID()
 	{
 		clientID = _defaultID;
@@ -135,7 +140,7 @@ class DiscordClient
 		var change:Bool = (clientID != newID);
 		clientID = newID;
 
-		if(change && isInitialized)
+		if (change && isInitialized)
 		{
 			shutdown();
 			initialize();
@@ -148,8 +153,10 @@ class DiscordClient
 	public static function addLuaCallbacks(lua:State)
 	{
 		Lua_helper.add_callback(lua, "changeDiscordPresence", changePresence);
-		Lua_helper.add_callback(lua, "changeDiscordClientID", function(?newID:String) {
-			if(newID == null) newID = _defaultID;
+		Lua_helper.add_callback(lua, "changeDiscordClientID", function(?newID:String)
+		{
+			if (newID == null)
+				newID = _defaultID;
 			clientID = newID;
 		});
 	}
@@ -221,7 +228,7 @@ final class DiscordPresence
 	{
 		return __presence.largeImageKey;
 	}
-	
+
 	@:noCompletion inline function set_largeImageKey(value:String):String
 	{
 		return __presence.largeImageKey = value;

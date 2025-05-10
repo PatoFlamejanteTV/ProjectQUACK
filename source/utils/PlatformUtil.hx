@@ -1,18 +1,17 @@
 package utils;
 
 /*
-    VS DAVE WINDOWS/LINUX/MACOS UTIL
-    You can use this code while you give credit to it.
-    65% of the code written by chromasen
-    35% of the code written by Erizur (cross-platform and extra windows utils)
+	VS DAVE WINDOWS/LINUX/MACOS UTIL
+	You can use this code while you give credit to it.
+	65% of the code written by chromasen
+	35% of the code written by Erizur (cross-platform and extra windows utils)
 
-    Windows: You need the Windows SDK (any version) to compile.
-    Linux: TODO
-    macOS: TODO
+	Windows: You need the Windows SDK (any version) to compile.
+	Linux: TODO
+	macOS: TODO
 
-    credits to the vs dave team right here uh yeah i love ya guys
-*/
-
+	credits to the vs dave team right here uh yeah i love ya guys
+ */
 #if windows
 @:cppFileCode('#include <stdlib.h>
 #include <stdio.h>
@@ -36,7 +35,7 @@ package utils;
 #end
 class PlatformUtil
 {
-    #if windows
+	#if windows
 	@:functionCode('
         HWND hWnd = GetActiveWindow();
         res = SetWindowLong(hWnd, GWL_EXSTYLE, GetWindowLong(hWnd, GWL_EXSTYLE) | WS_EX_LAYERED);
@@ -45,33 +44,33 @@ class PlatformUtil
             SetLayeredWindowAttributes(hWnd, RGB(1, 1, 1), 0, LWA_COLORKEY);
         }
     ')
-    #elseif linux
-    /*
-    REQUIRES IMPORTING X11 LIBRARIES (Xlib, Xutil, Xatom) to run, even tho it doesnt work
-    @:functionCode('
-        Display* display = XOpenDisplay(NULL);
-        Window wnd;
-        Atom property = XInternAtom(display, "_NET_WM_WINDOW_OPACITY", False);
-        int revert;
-        
-        if(property != None)
-        {
-            XGetInputFocus(display, &wnd, &revert);
-            unsigned long opacity = (0xff000000 / 0xffffffff) * 50;
-            XChangeProperty(display, wnd, property, XA_CARDINAL, 32, PropModeReplace, (unsigned char*)&opacity, 1);
-            XFlush(display);
-        }
-        XCloseDisplay(display);
-    ')
-    */
-    #end
-	static public function getWindowsTransparent(res:Int = 0)   // Only works on windows, otherwise returns 0!
+	#elseif linux
+	/*
+		REQUIRES IMPORTING X11 LIBRARIES (Xlib, Xutil, Xatom) to run, even tho it doesnt work
+		@:functionCode('
+			Display* display = XOpenDisplay(NULL);
+			Window wnd;
+			Atom property = XInternAtom(display, "_NET_WM_WINDOW_OPACITY", False);
+			int revert;
+			
+			if(property != None)
+			{
+				XGetInputFocus(display, &wnd, &revert);
+				unsigned long opacity = (0xff000000 / 0xffffffff) * 50;
+				XChangeProperty(display, wnd, property, XA_CARDINAL, 32, PropModeReplace, (unsigned char*)&opacity, 1);
+				XFlush(display);
+			}
+			XCloseDisplay(display);
+		')
+	 */
+	#end
+	static public function getWindowsTransparent(res:Int = 0) // Only works on windows, otherwise returns 0!
 	{
 		return res;
 	}
 
-    #if windows
-    @:functionCode('
+	#if windows
+	@:functionCode('
         LPCSTR lwDesc = desc.c_str();
 
         res = MessageBox(
@@ -81,13 +80,13 @@ class PlatformUtil
             MB_OK
         );
     ')
-    #end
-    static public function sendFakeMsgBox(desc:String = "", res:Int = 0)    // TODO: Linux and macOS (will do soon)
-    {
-        return res;
-    }
+	#end
+	static public function sendFakeMsgBox(desc:String = "", res:Int = 0) // TODO: Linux and macOS (will do soon)
+	{
+		return res;
+	}
 
-    #if windows
+	#if windows
 	@:functionCode('
         HWND hWnd = GetActiveWindow();
         res = SetWindowLong(hWnd, GWL_EXSTYLE, GetWindowLong(hWnd, GWL_EXSTYLE) ^ WS_EX_LAYERED);
@@ -96,21 +95,22 @@ class PlatformUtil
             SetLayeredWindowAttributes(hWnd, RGB(1, 1, 1), 1, LWA_COLORKEY);
         }
     ')
-    #end
-	static public function getWindowsbackward(res:Int = 0)  // Only works on windows, otherwise returns 0!
+	#end
+	static public function getWindowsbackward(res:Int = 0) // Only works on windows, otherwise returns 0!
 	{
 		return res;
 	}
 
-    #if windows
-    @:functionCode('
+	#if windows
+	@:functionCode('
         std::string p(getenv("APPDATA"));
         p.append("\\\\Microsoft\\\\Windows\\\\Themes\\\\TranscodedWallpaper");
 
         SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, (PVOID)p.c_str(), SPIF_UPDATEINIFILE);
     ')
-    #end
-    static public function updateWallpaper() {  // Only works on windows, otherwise returns 0!
-        return null;
-    }
+	#end
+	static public function updateWallpaper()
+	{ // Only works on windows, otherwise returns 0!
+		return null;
+	}
 }

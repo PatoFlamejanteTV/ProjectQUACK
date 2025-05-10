@@ -11,11 +11,13 @@ import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 import flixel.util.FlxStringUtil;
 
-typedef SongHeading = {
+typedef SongHeading =
+{
 	var path:String;
 	var antiAliasing:Bool;
 	var iconOffset:Float;
 }
+
 class CreditsPopUp extends FlxSpriteGroup
 {
 	public var bg:FlxSprite;
@@ -23,6 +25,7 @@ class CreditsPopUp extends FlxSpriteGroup
 
 	public var funnyText:FlxText;
 	public var funnyIcon:FlxSprite;
+
 	var curHeading:SongHeading;
 
 	public function new(x:Float, y:Float, title:String = '', songCreator:String = '')
@@ -33,11 +36,13 @@ class CreditsPopUp extends FlxSpriteGroup
 		var songCreatorIcon:String = '';
 		var headingPath:SongHeading = null;
 
-		headingPath = {path: PlayState.SONG.songCreditBarPath.length <= 0 ? 'JSEHeading' : 'songHeadings/' + PlayState.SONG.songCreditBarPath, antiAliasing: ClientPrefs.globalAntialiasing, iconOffset: 0};
+		headingPath = {path: PlayState.SONG.songCreditBarPath.length <= 0 ? 'JSEHeading' : 'songHeadings/'
+			+ PlayState.SONG.songCreditBarPath, antiAliasing: ClientPrefs.globalAntialiasing, iconOffset: 0};
 
-
-		if (PlayState.SONG.songCreditIcon.length >= 1) songCreatorIcon = PlayState.SONG.songCreditIcon;
-			else songCreatorIcon = 'ExampleIcon';
+		if (PlayState.SONG.songCreditIcon.length >= 1)
+			songCreatorIcon = PlayState.SONG.songCreditIcon;
+		else
+			songCreatorIcon = 'ExampleIcon';
 
 		if (headingPath != null)
 		{
@@ -52,19 +57,27 @@ class CreditsPopUp extends FlxSpriteGroup
 			bg.antialiasing = headingPath.antiAliasing;
 			curHeading = headingPath;
 		}
-		createHeadingText(title + "\nComposed by" + ' ' + songCreator + (!ClientPrefs.ratingCounter ? '\nNote Count: ${FlxStringUtil.formatMoney(PlayState.instance.totalNotes, false)} / ${FlxStringUtil.formatMoney(PlayState.instance.opponentNoteTotal, false)}' : ''));
+		createHeadingText(title
+			+ "\nComposed by"
+			+ ' '
+			+ songCreator
+			+
+			(!ClientPrefs.ratingCounter ? '\nNote Count: ${FlxStringUtil.formatMoney(PlayState.instance.totalNotes, false)} / ${FlxStringUtil.formatMoney(PlayState.instance.opponentNoteTotal, false)}' : ''));
 		funnyIcon = new FlxSprite(0, 0).loadGraphic(Paths.image('songCreators/$songCreatorIcon'));
 		funnyIcon.visible = PlayState.SONG.songCreditIcon.length > 0;
 		rescaleIcon();
 		add(funnyIcon);
 
-		if (PlayState.instance != null && headingPath.path == 'JSEHeading') bg.color = FlxColor.fromRGB(PlayState.instance.dad.healthColorArray[0], PlayState.instance.dad.healthColorArray[1], PlayState.instance.dad.healthColorArray[2]);
+		if (PlayState.instance != null && headingPath.path == 'JSEHeading')
+			bg.color = FlxColor.fromRGB(PlayState.instance.dad.healthColorArray[0], PlayState.instance.dad.healthColorArray[1],
+				PlayState.instance.dad.healthColorArray[2]);
 
 		rescaleBG();
 
 		var yValues = CoolUtil.getMinAndMax(bg.height, funnyText.height);
 		funnyText.y = funnyText.y + ((yValues[0] - yValues[1]) / 2);
 	}
+
 	public function switchHeading(newHeading:SongHeading)
 	{
 		if (bg != null)
@@ -74,14 +87,15 @@ class CreditsPopUp extends FlxSpriteGroup
 		bg = new FlxSprite().makeGraphic(400, 50, FlxColor.WHITE);
 		if (newHeading != null)
 		{
-				bg.loadGraphic(Paths.image(newHeading.path));
+			bg.loadGraphic(Paths.image(newHeading.path));
 		}
 		bg.antialiasing = newHeading.antiAliasing;
 		curHeading = newHeading;
 		add(bg);
-		
+
 		rescaleBG();
 	}
+
 	public function changeText(newText:String, newIcon:String, rescaleHeading:Bool = true)
 	{
 		createHeadingText(newText);
@@ -89,7 +103,7 @@ class CreditsPopUp extends FlxSpriteGroup
 		{
 			remove(funnyIcon);
 		}
-			funnyIcon = new FlxSprite(0, 0).loadGraphic(Paths.image('songCreators/$newIcon'));
+		funnyIcon = new FlxSprite(0, 0).loadGraphic(Paths.image('songCreators/$newIcon'));
 		rescaleIcon();
 		add(funnyIcon);
 
@@ -98,6 +112,7 @@ class CreditsPopUp extends FlxSpriteGroup
 			rescaleBG();
 		}
 	}
+
 	public function rescaleIcon()
 	{
 		var offset = (curHeading == null ? 0 : curHeading.iconOffset);
@@ -109,6 +124,7 @@ class CreditsPopUp extends FlxSpriteGroup
 		var heightValues = CoolUtil.getMinAndMax(funnyIcon.height, funnyText.height);
 		funnyIcon.setPosition(funnyText.textField.textWidth + offset, (heightValues[0] - heightValues[1]) / 2);
 	}
+
 	function createHeadingText(text:String)
 	{
 		if (funnyText != null)
@@ -121,6 +137,7 @@ class CreditsPopUp extends FlxSpriteGroup
 		funnyText.antialiasing = true;
 		add(funnyText);
 	}
+
 	function rescaleBG()
 	{
 		bg.setGraphicSize(Std.int((funnyText.textField.textWidth + 0.5)), Std.int(funnyText.height + 0.5));
