@@ -1,7 +1,7 @@
 <!-- this is an secret -->
 <h1 align="center">
   <br>
-  <a href="https://github.com/JordanSantiagoYT/FNF-JS-Engine"><img src="/art/iconOG.png" alt="JSengine" width="150"></a>
+  <a href="https://github.com/PatoFlamejanteTV/ProjectQUACK"><img src="/art/iconOG.png" alt="JSengine" width="150"></a>
   <br>
   <b>ProjectQUACK</b>
   <br>
@@ -13,9 +13,9 @@
 </h3>
 
 <p align="center">
-<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/JordanSantiagoYT/FNF-JS-Engine">
-<img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/JordanSantiagoYT/FNF-JS-Engine">
-<img alt="GitHub contributors" src="https://img.shields.io/github/contributors/JordanSantiagoYT/FNF-JS-Engine">
+<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/PatoFlamejanteTV/ProjectQUACK">
+<img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/PatoFlamejanteTV/ProjectQUACK">
+<img alt="GitHub contributors" src="https://img.shields.io/github/contributors/PatoFlamejanteTV/ProjectQUACK">
 </p>
 
 README.md revamped by [Nael2xd](https://youtube.com/@nael2xd?si=axwJrY_8jdlXUwSm)
@@ -27,6 +27,22 @@ _If you're looking for the Android/IOS version, [go here!](https://github.com/Jo
 Welcome to JS Engine's github repo, where you can download the engine and make spammy charts or have fun with the engine.
 
 This contains lots and lots of customizable and features built in to JS Engine, if you wanna see most of them listed, you can see it below this text
+
+# New features on ProjectQUACK
+
+## Lua
+
+- [ ]  Connection
+  - [ ]  `getWIFIStatus() => return bool`
+  - [ ]  `universalURL(URL: string) => return bool`
+  - [ ]  `pingURL(URL: string) => return number`
+     
+- [ ]  End-User
+  - [ ]  `getUsername() => return string`
+  - [ ]  `getLocalIP() => return string` _note that Local IP is not the same as public IP._
+  - [ ]  Hardware
+    - [ ]  `getBatteryLevel() => return string` _useful for automatic lower graphics/enable low res mode_
+    - [ ]  `getSun(mon: number?) => return number` _get monitor brightness%_
 
 # Features/Performances in JS ENGINE
 
