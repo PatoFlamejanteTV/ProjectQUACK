@@ -1,5 +1,5 @@
 #!/bin/sh
-# SETUP FOR MAC AND LINUX SYSTEMS!!!
+echo SETUP FOR [[[ONLY]]] MAC AND LINUX SYSTEMS!!! (also, may work on wsl i guess)
 # REMINDER THAT YOU NEED HAXE INSTALLED PRIOR TO USING THIS
 # https://haxe.org/download
 echo Installing dependencies...
