@@ -3,6 +3,7 @@
 	Author: UltimateQuack
 	Version: 1.0.0
 ]]
+
 function onCreate()
 	makeLuaText	('exampleText', 'Hello, World!', 400, 100, 100)
 	setTextColor('exampleText', 'FFFFFF')
