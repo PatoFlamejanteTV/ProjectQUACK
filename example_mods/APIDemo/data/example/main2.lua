@@ -1,10 +1,11 @@
 --[[
-	APIDemo - Example 1, Script 1
+	APIDemo - Example 1, Script 2
 	Author: UltimateQuack
 	Version: 1.0.0
 ]]
+
 function onCreate()
-	makeLuaText	('exampleText2', 'Hello, World!', 800, 200, 200)
+	makeLuaText	('exampleText2', 'Hello, World! *again*', 800, 200, 200)
 	setTextColor('exampleText2', 'FFFFFF')
 	setTextSize	('exampleText2', 64)
 	addLuaText	('exampleText2')
